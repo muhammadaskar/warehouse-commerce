@@ -8,12 +8,11 @@ services:
       
       echo -e 'Deleting kafka topics'
       kafka-topics --bootstrap-server kafka-broker-1:9092 --topic warehouse-topic --delete --if-exists
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic order-topic --delete --if-exists
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic inventory-topic --delete --if-exists
+      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic warehouse-create-topic --delete --if-exists
       echo -e 'Successfully deleted kafka topics'
       
       echo -e 'Creating kafka topics with multiple partitions and higher replication factor'
-      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --topic warehouse-topic --partitions 3 --replication-factor 2
+      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --topic warehouse-create-topic --partitions 3 --replication-factor 3
       echo -e 'Successfully created the kafka topics'
       
       kafka-topics --bootstrap-server kafka-broker-1:9092 --list

@@ -34,13 +34,11 @@ public class CreateWarehouseKafkaMessagePublisher implements WarehouseCreatedReq
             WarehouseRequestAvroModel warehouseRequestAvroModel = warehouseMessagingDataMapper
                     .warehouseCreatedEventToOtherRequestAvroModel(domainEvent);
 
-            log.info("warehouseRequestAvroModel : {}", warehouseRequestAvroModel);
-
-             kafkaProducer.send(warehouseServiceConfigData.getWarehouseRequestTopicName(),
-                    warehouseId,
+             kafkaProducer.send(warehouseServiceConfigData.getWarehouseCreateTopicName(),
+                     warehouseId,
                     warehouseRequestAvroModel,
                     warehouseKafkaMessageHelper
-                            .getKafkaCallback(warehouseServiceConfigData.getWarehouseRequestTopicName(),
+                            .getKafkaCallback(warehouseServiceConfigData.getWarehouseCreateTopicName(),
                                     warehouseRequestAvroModel,
                                     warehouseId,
                                     "WarehouseRequestAvroModel"));

@@ -6,7 +6,7 @@ logging:
     com.ecommerce.app: DEBUG
 
 user-service:
-  warehouse-request-topic-name: warehouse-topic
+  warehouse-create-topic-name: warehouse-create-topic
 
 spring:
   jpa:
@@ -18,7 +18,7 @@ spring:
         ddl-auto: update
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=user&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -26,7 +26,7 @@ spring:
     init:
       platform: postgres
       mode: always
-#      schema-locations: classpath:init-schema.sql
+      schema-locations: classpath:init-schema.sql
 
 kafka-config:
   bootstrap-servers: localhost:19092,localhost:29092,localhost:39092
@@ -49,7 +49,7 @@ kafka-producer-config:
 kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-  warehouse-consumer-group-id: warehouse-topic-consumer
+  warehouse-consumer-group-id: warehouse-topic-consumer-group
   auto-offset-reset: earliest
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
