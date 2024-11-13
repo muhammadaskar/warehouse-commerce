@@ -18,7 +18,7 @@ spring:
         ddl-auto: update
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=user&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -26,7 +26,7 @@ spring:
     init:
       platform: postgres
       mode: always
-#      schema-locations: classpath:init-schema.sql
+      schema-locations: classpath:init-schema.sql
 
 kafka-config:
   bootstrap-servers: localhost:19092,localhost:29092,localhost:39092

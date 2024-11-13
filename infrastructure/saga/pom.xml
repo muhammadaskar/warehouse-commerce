@@ -5,34 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.ecommerce.app</groupId>
-        <artifactId>user-service</artifactId>
+        <artifactId>infrastructure</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>user-application</artifactId>
+    <artifactId>saga</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-    </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.ecommerce.app</groupId>
-            <artifactId>user-application-service</artifactId>
+            <artifactId>common-domain</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.34</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>3.3.4</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

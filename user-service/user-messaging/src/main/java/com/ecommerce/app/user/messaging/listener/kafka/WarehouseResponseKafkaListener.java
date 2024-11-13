@@ -2,6 +2,8 @@ package com.ecommerce.app.user.messaging.listener.kafka;
 
 import com.ecommerce.app.kafka.consumer.KafkaConsumer;
 import com.ecommerce.app.kafka.warehouse.avro.model.WarehouseCreateAvroModel;
+import com.ecommerce.app.user.application.service.ports.input.message.listener.warehouse.WarehouseResponseMessageListener;
+import com.ecommerce.app.user.messaging.mapper.UserMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -15,13 +17,13 @@ import java.util.List;
 @Component
 public class WarehouseResponseKafkaListener implements KafkaConsumer<WarehouseCreateAvroModel> {
 
-//    private final WarehouseResponseMessageListener warehouseResponseMessageListener;
-//    private final UserMessagingDataMapper userMessagingDataMapper;
-//
-//    public WarehouseResponseKafkaListener(WarehouseResponseMessageListener warehouseResponseMessageListener, UserMessagingDataMapper userMessagingDataMapper) {
-//        this.warehouseResponseMessageListener = warehouseResponseMessageListener;
-//        this.userMessagingDataMapper = userMessagingDataMapper;
-//    }
+    private final WarehouseResponseMessageListener warehouseResponseMessageListener;
+    private final UserMessagingDataMapper userMessagingDataMapper;
+
+    public WarehouseResponseKafkaListener(WarehouseResponseMessageListener warehouseResponseMessageListener, UserMessagingDataMapper userMessagingDataMapper) {
+        this.warehouseResponseMessageListener = warehouseResponseMessageListener;
+        this.userMessagingDataMapper = userMessagingDataMapper;
+    }
 
     @Override
     @KafkaListener(id = "${kafka-consumer-config.warehouse-consumer-group-id}", topics = "${user-service.warehouse-create-topic-name}")
@@ -36,7 +38,9 @@ public class WarehouseResponseKafkaListener implements KafkaConsumer<WarehouseCr
                 offsets.toString());
 
         messages.forEach(warehouseCreateAvroModel -> {
-            log.debug("warehouseID: {}", warehouseCreateAvroModel.getWarehouseId());
+            warehouseResponseMessageListener.warehouseCreated(
+                    userMessagingDataMapper.warehouseCreateAvroModelToWarehouseCreate(warehouseCreateAvroModel)
+            );
         });
     }
 }
