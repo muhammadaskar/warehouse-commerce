@@ -1,6 +1,7 @@
 package com.ecommerce.app.user.application.service;
 
 import com.ecommerce.app.common.domain.event.DomainEvent;
+import com.ecommerce.app.common.domain.event.EmptyEvent;
 import com.ecommerce.app.saga.SagaStep;
 import com.ecommerce.app.user.application.service.dto.message.WarehouseCreate;
 import com.ecommerce.app.user.application.service.mapper.WarehouseDataMapper;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class WarehouseSaga implements SagaStep<WarehouseCreate, DomainEvent, DomainEvent> {
+public class WarehouseSaga implements SagaStep<WarehouseCreate, EmptyEvent, DomainEvent> {
 
     private final UserDomainService userDomainService;
     private final WarehouseSagaHelper warehouseSagaHelper;
@@ -24,12 +25,12 @@ public class WarehouseSaga implements SagaStep<WarehouseCreate, DomainEvent, Dom
     }
 
     @Override
-    public DomainEvent process(WarehouseCreate data) {
+    public EmptyEvent process(WarehouseCreate data) {
         log.info("Processing warehouse saga step");
         Warehouse warehouse = warehouseDataAccessMapper.warehouseCreateToWarehouse(data);
         warehouseSagaHelper.saveWarehouse(warehouse);
         log.info("Warehouse with id: {} is created", warehouse.getId().getValue());
-        return null;
+        return EmptyEvent.INSTANCE;
     }
 
     @Override
