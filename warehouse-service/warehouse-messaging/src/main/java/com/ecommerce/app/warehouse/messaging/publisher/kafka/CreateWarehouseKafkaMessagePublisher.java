@@ -2,7 +2,7 @@ package com.ecommerce.app.warehouse.messaging.publisher.kafka;
 
 import com.ecommerce.app.kafka.producer.KafkaMessageHelper;
 import com.ecommerce.app.kafka.producer.service.KafkaProducer;
-import com.ecommerce.app.kafka.warehouse.avro.model.WarehouseRequestAvroModel;
+import com.ecommerce.app.kafka.warehouse.avro.model.WarehouseCreateAvroModel;
 import com.ecommerce.app.warehouse.domain.core.event.WarehouseCreatedEvent;
 import com.ecommerce.app.warehouse.domain.service.config.WarehouseServiceConfigData;
 import com.ecommerce.app.warehouse.domain.service.ports.output.message.publisher.warehouse.WarehouseCreatedRequestMessagePublisher;
@@ -16,10 +16,10 @@ public class CreateWarehouseKafkaMessagePublisher implements WarehouseCreatedReq
 
     private final WarehouseMessagingDataMapper warehouseMessagingDataMapper;
     private final WarehouseServiceConfigData warehouseServiceConfigData;
-    private final KafkaProducer<String, WarehouseRequestAvroModel> kafkaProducer;
+    private final KafkaProducer<String, WarehouseCreateAvroModel> kafkaProducer;
     private final KafkaMessageHelper warehouseKafkaMessageHelper;
 
-    public CreateWarehouseKafkaMessagePublisher(WarehouseMessagingDataMapper warehouseMessagingDataMapper, WarehouseServiceConfigData warehouseServiceConfigData, KafkaProducer<String, WarehouseRequestAvroModel> kafkaProducer, KafkaMessageHelper warehouseKafkaMessageHelper) {
+    public CreateWarehouseKafkaMessagePublisher(WarehouseMessagingDataMapper warehouseMessagingDataMapper, WarehouseServiceConfigData warehouseServiceConfigData, KafkaProducer<String, WarehouseCreateAvroModel> kafkaProducer, KafkaMessageHelper warehouseKafkaMessageHelper) {
         this.warehouseMessagingDataMapper = warehouseMessagingDataMapper;
         this.warehouseServiceConfigData = warehouseServiceConfigData;
         this.kafkaProducer = kafkaProducer;
@@ -31,23 +31,23 @@ public class CreateWarehouseKafkaMessagePublisher implements WarehouseCreatedReq
         String warehouseId = domainEvent.getWarehouse().getId().getValue().toString();
         log.info("Received WarehouseCreatedEvent for warehouse id: {}", warehouseId);
         try {
-            WarehouseRequestAvroModel warehouseRequestAvroModel = warehouseMessagingDataMapper
+            WarehouseCreateAvroModel warehouseCreateAvroModel = warehouseMessagingDataMapper
                     .warehouseCreatedEventToOtherRequestAvroModel(domainEvent);
 
-            log.info("warehouseRequestAvroModel : {}", warehouseRequestAvroModel);
+            log.info("warehouseRequestAvroModel : {}", warehouseCreateAvroModel);
 
-             kafkaProducer.send(warehouseServiceConfigData.getWarehouseRequestTopicName(),
+             kafkaProducer.send(warehouseServiceConfigData.getWarehouseCreateTopicName(),
                     warehouseId,
-                    warehouseRequestAvroModel,
+                     warehouseCreateAvroModel,
                     warehouseKafkaMessageHelper
-                            .getKafkaCallback(warehouseServiceConfigData.getWarehouseRequestTopicName(),
-                                    warehouseRequestAvroModel,
+                            .getKafkaCallback(warehouseServiceConfigData.getWarehouseCreateTopicName(),
+                                    warehouseCreateAvroModel,
                                     warehouseId,
-                                    "WarehouseRequestAvroModel"));
-            log.info("WarehouseRequestAvroModel has been sent to warehouse id: {}", warehouseRequestAvroModel.getWarehouseId());
+                                    "WarehouseCreateAvroModel"));
+            log.info("WarehouseCreateAvroModel has been sent to warehouse id: {}", warehouseCreateAvroModel.getWarehouseId());
         } catch (Exception e) {
             log.error(new StringBuilder()
-                    .append("Error while sending WarehouseRequestAvroModel message")
+                    .append("Error while sending WarehouseCreateAvroModel message")
                     .append(" to kafka with warehouse id: {}").toString(), warehouseId, e.getMessage());
         }
     }

@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "warehouse-service")
 public class WarehouseServiceConfigData {
-    private String warehouseRequestTopicName;
+    private String warehouseCreateTopicName;
 }
