@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>kafka-consumer</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
     </properties>
@@ -23,13 +25,27 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-            <version>3.1.4</version>
+            <version>${org.spring.kafka.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro</artifactId>
-            <version>1.11.3</version>
+            <version>${org.apache.avro.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

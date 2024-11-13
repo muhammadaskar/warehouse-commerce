@@ -17,6 +17,7 @@
         <dependency>
             <groupId>org.apache.avro</groupId>
             <artifactId>avro</artifactId>
+            <version>${org.apache.avro.version}</version>
         </dependency>
     </dependencies>
 
@@ -25,7 +26,7 @@
             <plugin>
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro-maven-plugin</artifactId>
-                <version>1.11.3</version>
+                <version>${org.apache.avro.version}</version>
                 <configuration>
                     <stringType>String</stringType>
                     <enableDecimalLogicalType>true</enableDecimalLogicalType>

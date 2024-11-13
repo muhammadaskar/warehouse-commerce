@@ -15,6 +15,19 @@
         <module>user-service</module>
     </modules>
 
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <org.spring.kafka.version>3.2.4</org.spring.kafka.version>
+        <kafka-avro-serializer.version>7.2.1</kafka-avro-serializer.version>
+        <org.apache.avro.version>1.12.0</org.apache.avro.version>
+        <io.confluent.version>7.7.1</io.confluent.version>
+        <org.postgresql.version>42.7.4</org.postgresql.version>
+        <org.projectlombok.version>1.18.34</org.projectlombok.version>
+        <org.mockito.version>5.11.0</org.mockito.version>
+        <org.slf4j.version>2.0.16</org.slf4j.version>
+    </properties>
 
     <repositories>
         <repository>
