@@ -9,6 +9,7 @@ import com.ecommerce.app.user.domain.core.UserDomainService;
 import com.ecommerce.app.user.domain.core.entity.Warehouse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
@@ -25,6 +26,7 @@ public class WarehouseSaga implements SagaStep<WarehouseCreate, EmptyEvent, Doma
     }
 
     @Override
+    @Transactional
     public EmptyEvent process(WarehouseCreate data) {
         log.info("Processing warehouse saga step");
         Warehouse warehouse = warehouseDataAccessMapper.warehouseCreateToWarehouse(data);
@@ -34,6 +36,7 @@ public class WarehouseSaga implements SagaStep<WarehouseCreate, EmptyEvent, Doma
     }
 
     @Override
+    @Transactional
     public DomainEvent rollback(WarehouseCreate data) {
         return null;
     }
