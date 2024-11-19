@@ -11,23 +11,22 @@ import java.util.List;
 import java.util.UUID;
 
 public class User extends BaseEntity<UserId> {
-    private final WarehouseId warehouseId;
+    private WarehouseId warehouseId;
     private final String username;
     private final String email;
     private final String password;
-    private final boolean isEmailVerified;
-    private final List<Address> address;
+    private boolean isEmailVerified;
     private UserRole role;
 
     public void initializeAdmin() {
         initializeUser();
         role = UserRole.WAREHOUSE_ADMIN;
+        isEmailVerified = false;
     }
 
     public void validateAdmin() {
         // TODO: must to be check super admin role by token
         validateUsername();
-        validateAddress();
     }
 
     private void initializeUser(){
@@ -42,20 +41,20 @@ public class User extends BaseEntity<UserId> {
         }
     }
 
-    private void validateAddress() {
-        for (Address address : address) {
-            if (address.getCity() == null || address.getStreet() == null || address.getPostalCode() == null) {
-                throw new UserException("Address must contain at least one street or postal code");
-            }
-        }
-    }
-
     public String getUsername() {
         return username;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public boolean isEmailVerified() {
+        return isEmailVerified;
     }
 
     private User(Builder builder) {
@@ -65,7 +64,6 @@ public class User extends BaseEntity<UserId> {
         email = builder.email;
         password = builder.password;
         isEmailVerified = builder.isEmailVerified;
-        address = builder.address;
         role = builder.role;
     }
 
@@ -80,7 +78,6 @@ public class User extends BaseEntity<UserId> {
         private String email;
         private String password;
         private boolean isEmailVerified;
-        private List<Address> address;
         private UserRole role;
 
         private Builder() {
@@ -117,11 +114,6 @@ public class User extends BaseEntity<UserId> {
 
         public Builder withIsEmailVerified(boolean val) {
             isEmailVerified = val;
-            return this;
-        }
-
-        public Builder withAddress(List<Address> val) {
-            address = val;
             return this;
         }
 
