@@ -20,7 +20,7 @@ spec:
           image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-warehouse-app/user.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=user&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+              value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=user&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
             - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
               value: "gke-confluent-kafka-cp-kafka:9092"
             - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
@@ -72,7 +72,7 @@ spec:
           image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-warehouse-app/warehouse.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+              value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
             - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
               value: "gke-confluent-kafka-cp-kafka:9092"
             - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
