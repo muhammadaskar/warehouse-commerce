@@ -1,5 +1,6 @@
 package com.ecommerce.app.user.application.service;
 
+import com.ecommerce.app.user.application.service.ports.output.repository.UserAddressRepository;
 import com.ecommerce.app.user.application.service.ports.output.repository.UserRepository;
 import com.ecommerce.app.user.application.service.ports.output.repository.WarehouseRepository;
 import org.mockito.Mockito;
@@ -11,6 +12,11 @@ public class UserTestConfiguration {
     @Bean
     public UserRepository userRepository() {
         return Mockito.mock(UserRepository.class);
+    }
+
+    @Bean
+    public UserAddressRepository userAddressRepository() {
+        return Mockito.mock(UserAddressRepository.class);
     }
 
     @Bean

@@ -11,6 +11,7 @@ public class UserDataAccessMapper {
         return UserEntity.builder()
                 .id(user.getId().getValue())
                 .username(user.getUsername())
+                .password(user.getPassword())
                 .email(user.getEmail())
                 .isEmailVerified(user.isEmailVerified())
                 .role(user.getRole())
@@ -22,8 +23,30 @@ public class UserDataAccessMapper {
                 .withId(new UserId(userEntity.getId()))
                 .withUsername(userEntity.getUsername())
                 .withEmail(userEntity.getEmail())
-                .withPassword(userEntity.getPassword())
                 .withRole(userEntity.getRole())
+                .withIsEmailVerified(userEntity.isEmailVerified())
+                .build();
+    }
+
+    public User userEntityToUserWithPassword(UserEntity userEntity) {
+        return User.builder()
+                .withId(new UserId(userEntity.getId()))
+                .withUsername(userEntity.getUsername())
+                .withEmail(userEntity.getEmail())
+                .withRole(userEntity.getRole())
+                .withPassword(userEntity.getPassword())
+                .withIsEmailVerified(userEntity.isEmailVerified())
+                .build();
+    }
+
+    public User userLoginEntityToUser(UserEntity userEntity) {
+        return User.builder()
+                .withId(new UserId(userEntity.getId()))
+                .withUsername(userEntity.getUsername())
+                .withPassword(userEntity.getPassword())
+                .withEmail(userEntity.getEmail())
+                .withRole(userEntity.getRole())
+                .withIsEmailVerified(userEntity.isEmailVerified())
                 .build();
     }
 }

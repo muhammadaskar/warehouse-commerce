@@ -17,4 +17,8 @@ public class AddressItem {
     private String postalCode;
     @NotNull
     private String city;
+    @NotNull
+    private String latitude;
+    @NotNull
+    private String longitude;
 }
