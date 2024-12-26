@@ -6,7 +6,9 @@ import com.ecommerce.app.common.domain.valueobject.UserId;
 import com.ecommerce.app.common.domain.valueobject.UserRole;
 import com.ecommerce.app.common.domain.valueobject.WarehouseId;
 import com.ecommerce.app.user.domain.core.exception.UserException;
+import com.ecommerce.app.user.domain.core.valueobject.AddressId;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,19 +16,39 @@ public class User extends BaseEntity<UserId> {
     private WarehouseId warehouseId;
     private final String username;
     private final String email;
-    private final String password;
+    private String password;
+    private List<UserAddress> userAddress;
     private boolean isEmailVerified;
     private UserRole role;
+    private String token;
+
+    public void initializeCustomer() {
+        initializeUser();
+        role = UserRole.CUSTOMER;
+    }
+
+    public void validateCustomer() {
+        validateUsername();
+    }
 
     public void initializeAdmin() {
         initializeUser();
         role = UserRole.WAREHOUSE_ADMIN;
-        isEmailVerified = false;
     }
 
     public void validateAdmin() {
         // TODO: must to be check super admin role by token
         validateUsername();
+    }
+
+    public void initializeAddress() {
+//        if (userAddress == null) {
+//            userAddress = new ArrayList<>();
+//        }
+//        for (UserAddress address : userAddress) {
+//            System.out.println("MASUK SINI");
+//            address.initializeUserAddress(super.getId());
+//        }
     }
 
     private void initializeUser(){
@@ -38,6 +60,46 @@ public class User extends BaseEntity<UserId> {
             throw new UserException("Username is required");
         } else if (username.length() < 5) {
            throw new UserException("Username must be at least 5 characters");
+        }
+    }
+
+    public void validateLogin() {
+        if (!this.isEmailVerified) {
+            throw new UserException("Email is not verified");
+        }
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void verifyEmail() {
+        if (this.isEmailVerified) {
+            throw new UserException("Email already verified");
+        }
+        isEmailVerified = true;
+    }
+
+    public void validatePassword(String password, String confirmPassword) {
+        checkCreatePasswordAfterVerifyEmail();
+        if (!this.isEmailVerified) {
+            throw new UserException("Email is not verified");
+        }
+
+        if (password == null) {
+            throw new UserException("Password is required");
+        } else if (password.length() < 8) {
+            throw new UserException("Password must be at least 8 characters");
+        } else if (!password.equals(confirmPassword)) {
+            throw new UserException("Passwords do not match");
+        }
+    }
+
+    private void checkCreatePasswordAfterVerifyEmail() {
+        if (this.isEmailVerified) {
+            if (this.password != null) {
+                throw new UserException("Password already created");
+            }
         }
     }
 
@@ -57,7 +119,20 @@ public class User extends BaseEntity<UserId> {
         return isEmailVerified;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     private User(Builder builder) {
+        this.token = builder.token;
         super.setId(builder.id);
         warehouseId = builder.warehouseId;
         username = builder.username;
@@ -79,6 +154,7 @@ public class User extends BaseEntity<UserId> {
         private String password;
         private boolean isEmailVerified;
         private UserRole role;
+        private String token;
 
         private Builder() {
         }
@@ -119,6 +195,11 @@ public class User extends BaseEntity<UserId> {
 
         public Builder withRole(UserRole val) {
             role = val;
+            return this;
+        }
+
+        public Builder withToken(String val) {
+            token = val;
             return this;
         }
 

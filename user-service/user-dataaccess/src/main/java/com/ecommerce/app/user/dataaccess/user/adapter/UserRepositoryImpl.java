@@ -7,7 +7,9 @@ import com.ecommerce.app.user.dataaccess.user.repository.UserJpaRepository;
 import com.ecommerce.app.user.domain.core.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class UserRepositoryImpl implements UserRepository {
@@ -26,8 +28,24 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(UserId userId) {
-        return userJpaRepository.findById(userId.getValue()).map(userDataAccessMapper::userEntityToUser);
+    public List<User> findAll() {
+    return userJpaRepository.findAll().stream()
+            .map(userDataAccessMapper::userEntityToUser)
+            .collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<User> findById(UserId userId) {
+        return userJpaRepository.findById(userId.getValue()).map(userDataAccessMapper::userEntityToUserWithPassword);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userJpaRepository.findByUsername(username).map(userDataAccessMapper::userEntityToUser);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userJpaRepository.findByEmail(email).map(userDataAccessMapper::userLoginEntityToUser);
+    }
 }

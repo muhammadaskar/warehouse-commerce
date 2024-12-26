@@ -8,5 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "user-service")
 public class UserServiceConfigData {
+    private String secretKey;
+    private String userCreateTopicName;
     private String warehouseAdminCreateTopicName;
 }
