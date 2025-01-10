@@ -7,6 +7,7 @@ import com.ecommerce.app.warehouse.domain.core.entity.Warehouse;
 import com.ecommerce.app.warehouse.domain.service.ports.output.repository.WarehouseRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,6 +29,12 @@ public class WarehouseRepositoryImpl implements WarehouseRepository {
 
     @Override
     public Optional<Warehouse> findById(WarehouseId warehouseId) {
-        return warehouseJpaRepository.findById(warehouseId.getValue()).map(warehouseDataAccessMapper::warehouseEntityToWarehouseEntity);
+        return warehouseJpaRepository.findById(warehouseId.getValue()).map(warehouseDataAccessMapper::warehouseEntityToWarehouseEntityWithStocks);
+    }
+
+    @Override
+    public List<Warehouse> findAll() {
+        return warehouseJpaRepository.findAll().stream().
+                map(warehouseDataAccessMapper::warehouseEntityToWarehouseEntityWithStocks).toList();
     }
 }

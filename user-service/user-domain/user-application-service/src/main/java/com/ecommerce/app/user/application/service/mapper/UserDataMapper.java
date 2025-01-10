@@ -62,9 +62,11 @@ public class UserDataMapper {
     public LoginUserResponse userToLoginUserResponse(User user, String token, String message) {
         return LoginUserResponse.builder()
                 .token(token)
+                .userId(user.getId().getValue())
                 .email(user.getEmail())
-                .message(message)
                 .role(user.getRole().name())
+                .warehouseId(user.getWarehouseId().getValue())
+                .message(message)
                 .build();
     }
 }

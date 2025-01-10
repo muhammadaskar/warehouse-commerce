@@ -43,6 +43,11 @@ public class UserCreateHelper {
         this.userServiceConfigData = userServiceConfigData;
     }
 
+    /**
+     * Persist user
+     * @param createUserCommand CreateUserCommand
+     * @return UserCreatedEvent
+     */
     @Transactional
     public UserCreatedEvent persistUser(CreateUserCommand createUserCommand) {
         log.info("Creating user with username: {}", createUserCommand.getUsername());
@@ -55,6 +60,11 @@ public class UserCreateHelper {
         return userCreatedEvent;
     }
 
+    /**
+     * Persist email verification
+     * @param command CreateVerifyEmailCommand
+     * @return User
+     */
     @Transactional
     public User persistEmailVerification(CreateVerifyEmailCommand command) {
         DecodedJWT decodedJWT = verifyToken(command.getToken());
@@ -73,6 +83,12 @@ public class UserCreateHelper {
         return user.get();
     }
 
+    /**
+     * Persist password
+     * @param userIdQuery UserIdQuery
+     * @param command CreatePasswordCommand
+     * @return User
+     */
     @Transactional
     public User persistPassword(UserIdQuery userIdQuery, CreatePasswordCommand command) {
         log.info("Creating password for user with id: {}", userIdQuery.getUserId());
@@ -90,6 +106,11 @@ public class UserCreateHelper {
         return user.get();
     }
 
+    /**
+     * Persist login
+     * @param user LoginUserCommand
+     * @return LoginResponse
+     */
     @Transactional
     public LoginResponse login(LoginUserCommand user) {
         User userResult = userRepository.findByEmail(user.getEmail())
@@ -104,17 +125,31 @@ public class UserCreateHelper {
         return new LoginResponse(userResult, token);
     }
 
+    /**
+     * get all users
+     * @return User
+     */
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * get user by id
+     * @param userIdQuery UserIdQuery
+     * @return User
+     */
     @Transactional(readOnly = true)
     public User getUserById(UserIdQuery userIdQuery) {
         return userRepository.findById(new UserId(userIdQuery.getUserId()))
                 .orElseThrow(() -> new UserNotFoundException("User with id " + userIdQuery.getUserId() + " not found!"));
     }
 
+    /**
+     * get user by email
+     * @param user User
+     * @return User
+     */
     private User saveUser(User user) {
         userRepository.findByUsername(user.getUsername()).ifPresent(existingUser -> {
             log.error("User with username: {} already exists!", user.getUsername());
@@ -134,17 +169,29 @@ public class UserCreateHelper {
         return userResult;
     }
 
+    /**
+     * generate token
+     * @param user User
+     * @return String
+     */
     private String generateToken(User user) {
         return JWT.create()
                 .withSubject(user.getId().getValue().toString())
                 .withClaim("email", user.getEmail())
                 .withClaim("role", user.getRole().name())
                 .withClaim("is_email_verified", user.isEmailVerified())
+                .withClaim("warehouse_id", (user.getWarehouseId() != null
+                        && user.getWarehouseId().getValue() != null) ? user.getWarehouseId().getValue().toString() : null)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 864_000_00))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 31_536_000_000L))
                 .sign(Algorithm.HMAC256(userServiceConfigData.getSecretKey()));
     }
 
+    /**
+     * generate token for email verification
+     * @param user User
+     * @return String
+     */
     private String generateTokenVerifyEmail(User user) {
         return JWT.create()
                 .withSubject(user.getId().getValue().toString())
@@ -156,6 +203,11 @@ public class UserCreateHelper {
                 .sign(Algorithm.HMAC256(userServiceConfigData.getSecretKey()));
     }
 
+    /**
+     * verify token
+     * @param token String
+     * @return DecodedJWT
+     */
     private DecodedJWT verifyToken(String token) {
         DecodedJWT decodedJWT;
         try {

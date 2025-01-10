@@ -127,6 +127,10 @@ public class User extends BaseEntity<UserId> {
         return token;
     }
 
+    public WarehouseId getWarehouseId() {
+        return warehouseId;
+    }
+
     public void setToken(String token) {
         this.token = token;
     }

@@ -7,7 +7,16 @@ logging:
 #    org.springframework: DEBUG
 
 warehouse-service:
+  secret-key: secret-key
   warehouse-create-topic-name: warehouse-create-topic
+  order-paid-request-topic-name: order-paid-request-topic
+  order-warehouse-response-topic-name: order-warehouse-response-topic
+  stock-transferred-update-topic-name: stock-transferred-update-topic
+  order-shipped-request-topic-name: order-shipped-request-topic
+  order-shipped-response-topic-name: order-shipped-response-topic
+  stock-shipped-update-topic-name: stock-shipped-update-topic
+  stock-updated-topic-name: stock-updated-topic
+  stock-created-topic-name: stock-created-topic
 
 spring:
   jpa:
@@ -23,11 +32,11 @@ spring:
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      platform: postgres
-      mode: always
-      schema-locations: classpath:init-schema.sql
+#  sql:
+#    init:
+#      platform: postgres
+#      mode: always
+#      schema-locations: classpath:init-schema.sql
 
 kafka-config:
   bootstrap-servers: localhost:19092,localhost:29092,localhost:39092
@@ -50,8 +59,8 @@ kafka-producer-config:
 kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-#  payment-consumer-group-id: payment-topic-consumer
-#  seller-approval-consumer-group-id: seller-approval-topic-consumer
+  order-paid-consumer-group-id: order-paid-topic-consumer
+  order-warehouse-shipped-consumer-group-id: order-warehouse-shipped-topic-consumer
   auto-offset-reset: earliest
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true

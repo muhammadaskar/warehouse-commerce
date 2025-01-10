@@ -27,6 +27,11 @@ public class WarehouseAdminCreateHelper {
         this.warehouseAdminCreatedMessagePublisher = warehouseAdminCreatedMessagePublisher;
     }
 
+    /**
+     * Persist warehouse admin
+     * @param createWarehouseAdminCommand CreateWarehouseAdminCommand
+     * @return WarehouseAdminCreatedEvent
+     */
     @Transactional
     public WarehouseAdminCreatedEvent persistWarehouseAdmin(CreateWarehouseAdminCommand createWarehouseAdminCommand) {
         User user = userDataMapper.warehouseAdminCommandToUser(createWarehouseAdminCommand);
@@ -36,6 +41,11 @@ public class WarehouseAdminCreateHelper {
         return warehouseAdminCreatedEvent;
     }
 
+    /**
+     * Save user
+     * @param user User
+     * @return User
+     */
     private User saveUser(User user) {
         User userResult = userRepository.save(user);
         if (userResult == null) {

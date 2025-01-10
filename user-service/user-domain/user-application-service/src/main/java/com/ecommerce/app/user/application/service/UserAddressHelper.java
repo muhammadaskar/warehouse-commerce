@@ -1,6 +1,5 @@
 package com.ecommerce.app.user.application.service;
 
-import com.ecommerce.app.common.domain.valueobject.Address;
 import com.ecommerce.app.common.domain.valueobject.UserId;
 import com.ecommerce.app.user.application.service.dto.create.CreateUserAddressCommand;
 import com.ecommerce.app.user.application.service.dto.create.ListUserAddressResponse;
@@ -36,6 +35,11 @@ public class UserAddressHelper {
         this.userAddressDataMapper = userAddressDataMapper;
     }
 
+    /**
+     * Add address to user
+     * @param createUserAddressCommand CreateUserAddressCommand
+     * @return UserAddress
+     */
     @Transactional
     public UserAddress addAddressToUser(CreateUserAddressCommand createUserAddressCommand) {
         log.info("Adding address to user with id: {}", createUserAddressCommand.getUserId());
@@ -54,6 +58,11 @@ public class UserAddressHelper {
         return userAddress;
     }
 
+    /**
+     * Get list of addresses by user id
+     * @param userId UserIdQuery
+     * @return List<ListUserAddressResponse>
+     */
     @Transactional(readOnly = true)
     public List<ListUserAddressResponse> getListAddressByUserId(UserIdQuery userId) {
         log.info("Finding address by user id: {}", userId);
@@ -61,6 +70,11 @@ public class UserAddressHelper {
         return userAddresses;
     }
 
+    /**
+     * save user address based on user id
+     * @param userAddress UserAddress
+     * @return UserAddress
+     */
     private UserAddress saveUserAddress(UserAddress userAddress) {
         UserAddress userAddressResult = userAddressRepository.save(userAddress);
         if (userAddressResult == null) {
