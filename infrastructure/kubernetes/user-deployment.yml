@@ -38,6 +38,8 @@ kind: Service
 metadata:
   name: user-service
   namespace: default
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
   labels:
     app: user-service
 spec:

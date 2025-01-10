@@ -38,6 +38,8 @@ kind: Service
 metadata:
   name: order-service
   namespace: default
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
   labels:
     app: order-service
 spec:
