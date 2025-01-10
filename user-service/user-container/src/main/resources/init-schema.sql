@@ -31,7 +31,8 @@ CREATE TABLE user_addresses (
     city VARCHAR(100) NOT NULL,
     latitude VARCHAR(50) NOT NULL,
     longitude VARCHAR(50) NOT NULL,
-    is_primary BOOLEAN DEFAULT FALSE
+    is_primary BOOLEAN DEFAULT FALSE,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 INSERT INTO "user".users (id, username, email, password, is_email_verified, role) VALUES ('111e4567-e89b-12d3-a456-426614174000', 'superadmin', 'superadmin@gmail.com', '$2a$10$B4iIWo/gfc.mkKwR3GbWne0pt4B07LHFER7hHysugWh4CNxXowbeS', TRUE, 'SUPER_ADMIN');

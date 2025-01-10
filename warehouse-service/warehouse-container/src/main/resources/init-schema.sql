@@ -54,7 +54,10 @@ CREATE TABLE stock_transfers (
     quantity INT NOT NULL,
     reason TEXT NOT NULL,
     status transfer_status,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_source_warehouse_id FOREIGN KEY (source_warehouse_id) REFERENCES warehouses (id),
+    CONSTRAINT fk_destination_warehouse_id FOREIGN KEY (destination_warehouse_id) REFERENCES warehouses (id),
+    CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
 DROP TYPE IF EXISTS change_type;
@@ -67,7 +70,9 @@ CREATE TABLE stock_journals (
     change_type change_type NOT NULL,
     quantity INT NOT NULL,
     reason TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_warehouse_id FOREIGN KEY (warehouse_id) REFERENCES warehouses (id),
+    CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
 INSERT INTO "warehouse".warehouses (id, name, street, postal_code, city, latitude, longitude)
