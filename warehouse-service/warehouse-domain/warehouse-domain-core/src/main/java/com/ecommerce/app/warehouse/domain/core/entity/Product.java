@@ -8,7 +8,7 @@ import java.util.Set;
 public class Product extends BaseEntity<ProductId> {
     private String name;
     private String desc;
-    private Set<Stock> stocks; // TODO: revise
+    private Set<Stock> stocks;
 
     public Product(ProductId id) {
         super.setId(id);
@@ -23,6 +23,14 @@ public class Product extends BaseEntity<ProductId> {
 
     public Set<Stock> getStocks() {
         return stocks;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
     }
 
     public static final class Builder {

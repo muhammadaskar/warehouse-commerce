@@ -1,6 +1,7 @@
 package com.ecommerce.app.user.dataaccess.user.mapper;
 
 import com.ecommerce.app.common.domain.valueobject.UserId;
+import com.ecommerce.app.common.domain.valueobject.WarehouseId;
 import com.ecommerce.app.user.dataaccess.user.entity.UserEntity;
 import com.ecommerce.app.user.domain.core.entity.User;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,7 @@ public class UserDataAccessMapper {
                 .withEmail(userEntity.getEmail())
                 .withRole(userEntity.getRole())
                 .withIsEmailVerified(userEntity.isEmailVerified())
+                .withWarehouseId(new WarehouseId(userEntity.getWarehouseId()))
                 .build();
     }
 }

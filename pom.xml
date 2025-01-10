@@ -13,6 +13,9 @@
         <module>infrastructure</module>
         <module>warehouse-service</module>
         <module>user-service</module>
+        <module>product-service</module>
+        <module>order-service</module>
+        <module>payment-service</module>
     </modules>
 
     <properties>
@@ -45,34 +48,36 @@
             </dependency>
             <dependency>
                 <groupId>com.ecommerce.app</groupId>
-                <artifactId>warehouse-domain-core</artifactId>
+                <artifactId>common-application</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.ecommerce.app</groupId>
-                <artifactId>warehouse-application</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ecommerce.app</groupId>
-                <artifactId>warehouse-application-service</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ecommerce.app</groupId>
-                <artifactId>warehouse-dataaccess</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ecommerce.app</groupId>
-                <artifactId>warehouse-messaging</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ecommerce.app</groupId>
-                <artifactId>warehouse-container</artifactId>
+                <artifactId>common-application-service</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.1.4</version> <!-- Specify the correct version here -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

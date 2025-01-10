@@ -2,8 +2,10 @@ package com.ecommerce.app.kafka.producer;
 
 import com.ecommerce.app.kafka.config.data.KafkaConfigData;
 import com.ecommerce.app.kafka.config.data.KafkaProducerConfigData;
+import lombok.Data;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -14,6 +16,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 @Configuration
 public class KafkaProducerConfig<K extends Serializable, V extends SpecificRecordBase> {
     private final KafkaConfigData kafkaConfigData;

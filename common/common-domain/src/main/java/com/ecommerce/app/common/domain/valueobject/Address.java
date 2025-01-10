@@ -4,11 +4,15 @@ public class Address {
     private String street;
     private String postalCode;
     private String city;
+    private String latitude;
+    private String longitude;
 
-    public Address(String street, String postalCode, String city) {
+    public Address(String street, String postalCode, String city, String latitude, String longitude) {
         this.street = street;
         this.postalCode = postalCode;
         this.city = city;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getStreet() {
@@ -21,5 +25,13 @@ public class Address {
 
     public String getCity() {
         return city;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
     }
 }

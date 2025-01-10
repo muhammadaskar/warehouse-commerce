@@ -8,13 +8,16 @@ import com.ecommerce.app.warehouse.domain.core.valueobject.StockId;
 import com.ecommerce.app.warehouse.domain.core.valueobject.StockTransferStatus;
 
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 public class Stock extends BaseEntity<StockId> {
-    private final WarehouseId warehouseId;
-    private final ProductId productId;
+    private WarehouseId warehouseId;
+    private ProductId productId;
     private int quantity;
-    private ZonedDateTime updatedAt;
-    private StockTransferStatus stockTransferStatus; // TODO: revise
+    private StockTransferStatus stockTransferStatus;
+    private Warehouse warehouse;
+    private StockJournal stockJournal;
+    private Product product;
 
     public Stock(WarehouseId warehouseId, ProductId productId, int quantity) {
         this.warehouseId = warehouseId;
@@ -27,17 +30,46 @@ public class Stock extends BaseEntity<StockId> {
         warehouseId = builder.warehouseId;
         productId = builder.productId;
         quantity = builder.quantity;
-        updatedAt = builder.updatedAt;
         stockTransferStatus = builder.stockTransferStatus;
+        warehouse = builder.warehouse;
+        stockJournal = builder.stockJournal;
+        product = builder.product;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    public void createStock(Warehouse warehouse, Product product, int quantity, StockJournal stockJournal) {
+        if (quantity < 0) {
+            throw new WarehouseDomainException("Quantity cannot be negative");
+        }
+        super.setId(new StockId(UUID.randomUUID()));
+        this.warehouse = warehouse;
+        this.product = product;
+        this.warehouseId = warehouse.getId();
+        this.productId = stockJournal.getProductId();
+        stockJournal.addStock(quantity);
+        setQuantity(quantity);
+    }
+
+    public void updateStock(Product product, int quantity, StockJournal stockJournal) {
+        if (quantity < 0) {
+            throw new WarehouseDomainException("Quantity cannot be negative");
+        }
+
+        if (this.quantity > quantity) {
+            stockJournal.reduceStock(this.quantity - quantity);
+        } else {
+            stockJournal.addStock(quantity - this.quantity);
+        }
+        setQuantity(quantity);
+        this.product = product;
+    }
+
     public void increase(int quantity) {
         this.quantity += quantity;
-        this.updatedAt = ZonedDateTime.now();
+        System.out.println("Quantity increased to: " + this.quantity);
     }
 
     public void decrease(int quantity) {
@@ -45,7 +77,7 @@ public class Stock extends BaseEntity<StockId> {
             throw new WarehouseDomainException("Insufficient stock to decrease");
         }
         this.quantity -= quantity;
-        this.updatedAt = ZonedDateTime.now();
+        System.out.println("Quantity decreased to: " + this.quantity);
     }
 
     public void transferStockTo(WarehouseId toWarehouseId, Product product, int quantity) {
@@ -59,7 +91,7 @@ public class Stock extends BaseEntity<StockId> {
                 stock.decrease(quantity);
                 product.getStocks().add(stock);
             }
-            stockTransferStatus = StockTransferStatus.TRANSFER;
+            stockTransferStatus = StockTransferStatus.TRANSFERRED;
         } catch (WarehouseDomainException e) {
             throw new WarehouseDomainException("Error transferring stock: " + e.getMessage());
         }
@@ -106,6 +138,25 @@ public class Stock extends BaseEntity<StockId> {
         return stockTransferStatus;
     }
 
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public StockJournal getStockJournal() {
+        return stockJournal;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public static final class Builder {
         private StockId id;
@@ -114,6 +165,9 @@ public class Stock extends BaseEntity<StockId> {
         private int quantity;
         private ZonedDateTime updatedAt;
         private StockTransferStatus stockTransferStatus;
+        private Warehouse warehouse;
+        private StockJournal stockJournal;
+        private Product product;
 
         private Builder() {
         }
@@ -149,6 +203,21 @@ public class Stock extends BaseEntity<StockId> {
 
         public Builder withStockTransferStatus(StockTransferStatus val) {
             stockTransferStatus = val;
+            return this;
+        }
+
+        public Builder withWarehouse(Warehouse val) {
+            warehouse = val;
+            return this;
+        }
+
+        public Builder withStockJournal(StockJournal val) {
+            stockJournal = val;
+            return this;
+        }
+
+        public Builder withProduct(Product val) {
+            product = val;
             return this;
         }
 

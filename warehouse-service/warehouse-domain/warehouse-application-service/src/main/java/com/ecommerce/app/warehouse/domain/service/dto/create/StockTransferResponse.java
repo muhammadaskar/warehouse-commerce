@@ -5,19 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Getter
 @Builder
 @AllArgsConstructor
 public class StockTransferResponse {
-    @NotNull
-    private final UUID warehouseId;
-    @NotNull
-    private final UUID productId;
-    @NotNull
+    private final UUID stockTransferId;
+    private final int quantity;
+    private final String reason;
+    private final WarehouseIdAndNameResponse sourceWarehouse;
+    private final WarehouseIdAndNameResponse destinationWarehouse;
+    private final ProductResponse product;
     private final StockTransferStatus status;
-    @NotNull
-    private final String message;
+    private final ZonedDateTime createdAt;
 }

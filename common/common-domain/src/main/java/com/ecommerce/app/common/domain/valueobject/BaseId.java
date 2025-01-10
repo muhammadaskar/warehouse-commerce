@@ -6,16 +6,16 @@ public abstract class BaseId<T> {
 
     private final T value;
 
-//    public BaseId(T value) {
-//        this.value = value;
-//    }
-
     public BaseId(T value) {
-        if (value == null) {
-            throw new IllegalArgumentException("ID cannot be null");
-        }
         this.value = value;
     }
+
+//    public BaseId(T value) {
+//        if (value == null) {
+//            throw new IllegalArgumentException("ID cannot be null");
+//        }
+//        this.value = value;
+//    }
 
     public T getValue() {
         return value;

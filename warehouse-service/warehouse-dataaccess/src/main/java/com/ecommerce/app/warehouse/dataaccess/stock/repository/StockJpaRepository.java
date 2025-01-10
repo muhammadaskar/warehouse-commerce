@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface StockJpaRepository extends JpaRepository<StockEntity, UUID> {
-
     Optional<StockEntity> findById(UUID id);
+    Optional<StockEntity> findFirstByProductIdAndWarehouseId(UUID productId, UUID warehouseId);
 }
