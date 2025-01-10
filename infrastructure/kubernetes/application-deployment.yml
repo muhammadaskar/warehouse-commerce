@@ -162,6 +162,7 @@ spec:
   type: LoadBalancer
   loadBalancerIP: ""
 
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -213,6 +214,7 @@ spec:
       port: 8484
   type: LoadBalancer
   loadBalancerIP: ""
+
 
 ---
 apiVersion: apps/v1
