@@ -91,7 +91,7 @@ public class OrderHelper {
      */
     @Transactional
     public OrderPaymentProofUploadedEvent paymentProofUploaded(PaymentProofUploadRequest paymentProofUploadRequest) {
-        log.info("Payment proof uploaded for order with id: {}", paymentProofUploadRequest.getOrderId());
+        log.info("Change Status order to pending with id: {}", paymentProofUploadRequest.getOrderId());
         Order order = orderDataMapper.paymentProofUploadedToOrder(paymentProofUploadRequest);
         Order findOrder = orderRepository.findById(order.getId()).orElseThrow(() -> new OrderException("Order not found"));
         OrderPaymentProofUploadedEvent orderPaymentProofUploadedEvent = orderDomainService.updateOrderPaymentStatus(findOrder, orderPaymentProofUploadedResponseMessagePublisher);
@@ -106,6 +106,7 @@ public class OrderHelper {
      */
     @Transactional
     public OrderPaidEvent payOrder(PaymentApprovedRequest paymentApprovedRequest) {
+        log.info("Change Status order to paid with id: {}", paymentApprovedRequest.getOrderId());
         Order order = orderDataMapper.paymentApprovedToOrder(paymentApprovedRequest);
         Order findOrder = findOrder(order.getId());
         OrderPaidEvent orderPaidEvent = orderDomainService.updateOrderStatusToPaid(findOrder, orderPaidEventRequestMessagePublisher);

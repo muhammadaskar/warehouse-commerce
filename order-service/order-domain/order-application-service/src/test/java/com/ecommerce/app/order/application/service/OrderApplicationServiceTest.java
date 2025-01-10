@@ -4,6 +4,8 @@ import com.ecommerce.app.common.domain.valueobject.*;
 import com.ecommerce.app.order.application.service.dto.create.*;
 import com.ecommerce.app.order.application.service.dto.header.AuthorizationHeader;
 import com.ecommerce.app.order.application.service.dto.message.OrderWarehouseResponse;
+import com.ecommerce.app.order.application.service.dto.message.PaymentApprovedRequest;
+import com.ecommerce.app.order.application.service.dto.message.PaymentProofUploadRequest;
 import com.ecommerce.app.order.application.service.mapper.OrderDataMapper;
 import com.ecommerce.app.order.application.service.ports.input.message.listener.warehouse.OrderWarehouseApplicationMessageListener;
 import com.ecommerce.app.order.application.service.ports.input.service.OrderApplicationService;
@@ -19,9 +21,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -32,6 +37,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(classes = OrderTestConfiguration.class)
+@ExtendWith(OutputCaptureExtension.class)
 public class OrderApplicationServiceTest {
 
     @Autowired
@@ -40,8 +46,8 @@ public class OrderApplicationServiceTest {
     @Autowired
     OrderWarehouseApplicationMessageListener orderWarehouseApplicationMessageListener;
 
-//    @Autowired
-
+    @Autowired
+    PaymentApplicationMessageListener paymentApplicationMessageListener;
 
     @Autowired
     private OrderDataMapper orderDataMapper;
@@ -63,6 +69,8 @@ public class OrderApplicationServiceTest {
     private CreateOrderIdCommand createOrderIdCommand;
 
     // from event message
+    private PaymentProofUploadRequest paymentProofUploadRequest;
+    private PaymentApprovedRequest paymentApprovedRequest;
     private OrderWarehouseResponse orderWarehouseResponse;
 
     private final UUID USER_ID = UUID.fromString("444e4567-e89b-12d3-a456-426614174003");
@@ -140,6 +148,21 @@ public class OrderApplicationServiceTest {
                 .totalPrice(new BigDecimal("0"))
                 .build();
 
+        paymentProofUploadRequest = PaymentProofUploadRequest.builder()
+                .userId(USER_ID.toString())
+                .orderId(ORDER_ID.toString())
+                .price(new BigDecimal("55000"))
+                .createdAt(java.time.Instant.now())
+                .paymentStatus(PaymentStatus.UNDER_REVIEW)
+                .build();
+
+        paymentApprovedRequest = PaymentApprovedRequest.builder()
+                .orderId(ORDER_ID.toString())
+                .paymentId(UUID.randomUUID().toString())
+                .paymentOrderStatus(PaymentStatus.PAID)
+                .createdAt(java.time.Instant.now())
+                .build();
+
         orderWarehouseResponse = OrderWarehouseResponse.builder()
                 .orderId(ORDER_ID.toString())
                 .warehouseId("8b622abe-b4c6-4540-84df-7dc0e9752529")
@@ -215,25 +238,49 @@ public class OrderApplicationServiceTest {
     /**
      * Pending order is customer has been uploaded the payment proof
      */
-//    @Test
-//    void testPendingOrder() {
-//        System.out.println("testProcessedOrder");
-//
-//        Order order = Order.newBuilder()
-//                .withId(new OrderId(ORDER_ID))
-//                .withWarehouseId(new WarehouseId(UUID.fromString("8b622abe-b4c6-4540-84df-7dc0e9752529")))
-//                .withShippingMethod("JNE")
-//                .withUserId(new UserId(USER_ID))
-//                .withStatus(OrderStatus.AWAITING_PAYMENT)
-//                .build();
-//
-//        Order orderMapper = orderDataMapper.orderWarehouseResponseToOrder(orderWarehouseResponse);
-//
-//        Mockito.when(orderRepository.findById(new OrderId(ORDER_ID))).thenReturn(java.util.Optional.of(order));
-//        Mockito.when(orderRepository.save(any(Order.class))).thenReturn(orderMapper);
-//
-//        orderWarehouseApplicationMessageListener(orderWarehouseResponse);
-//    }
+    @Test
+    void testPendingOrder(CapturedOutput output) {
+        System.out.println("testPendingOrder");
+
+        Order order = Order.newBuilder()
+                .withId(new OrderId(ORDER_ID))
+                .withWarehouseId(new WarehouseId(UUID.fromString("8b622abe-b4c6-4540-84df-7dc0e9752529")))
+                .withShippingMethod("JNE")
+                .withUserId(new UserId(USER_ID))
+                .withStatus(OrderStatus.AWAITING_PAYMENT)
+                .build();
+
+        Order orderMapper = orderDataMapper.paymentProofUploadedToOrder(paymentProofUploadRequest);
+
+        Mockito.when(orderRepository.findById(new OrderId(ORDER_ID))).thenReturn(java.util.Optional.of(order));
+        Mockito.when(orderRepository.save(any(Order.class))).thenReturn(orderMapper);
+
+        paymentApplicationMessageListener.paymentProofUploaded(paymentProofUploadRequest);
+        assertTrue(output.getOut().contains("Payment proof uploaded for order with id: " + ORDER_ID));
+        assertTrue(output.getOut().contains("Change Status order to pending with id: " + ORDER_ID));
+    }
+
+    @Test
+    void testPaidOrder(CapturedOutput output) {
+        System.out.println("testPaidOrder");
+
+        Order order = Order.newBuilder()
+                .withId(new OrderId(ORDER_ID))
+                .withWarehouseId(new WarehouseId(UUID.fromString("8b622abe-b4c6-4540-84df-7dc0e9752529")))
+                .withShippingMethod("JNE")
+                .withUserId(new UserId(USER_ID))
+                .withStatus(OrderStatus.PENDING)
+                .build();
+
+        Order orderMapper = orderDataMapper.paymentApprovedToOrder(paymentApprovedRequest);
+
+        Mockito.when(orderRepository.findById(new OrderId(ORDER_ID))).thenReturn(java.util.Optional.of(order));
+        Mockito.when(orderRepository.save(any(Order.class))).thenReturn(orderMapper);
+
+        paymentApplicationMessageListener.approveOrder(paymentApprovedRequest);
+        assertTrue(output.getOut().contains("Payment approved for order with id: " + ORDER_ID));
+        assertTrue(output.getOut().contains("Change Status order to paid with id: " + ORDER_ID));
+    }
 
     @Test
     void testProcessedOrder() {
