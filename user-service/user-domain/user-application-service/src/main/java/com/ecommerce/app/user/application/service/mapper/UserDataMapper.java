@@ -65,7 +65,7 @@ public class UserDataMapper {
                 .userId(user.getId().getValue())
                 .email(user.getEmail())
                 .role(user.getRole().name())
-                .warehouseId(user.getWarehouseId().getValue())
+                .warehouseId(user.getWarehouseId() != null ? user.getWarehouseId().getValue() : null)
                 .message(message)
                 .build();
     }

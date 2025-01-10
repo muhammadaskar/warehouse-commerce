@@ -184,7 +184,7 @@ public class UserCreateHelper {
                         && user.getWarehouseId().getValue() != null) ? user.getWarehouseId().getValue().toString() : null)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 31_536_000_000L))
-                .sign(Algorithm.HMAC256(userServiceConfigData.getSecretKey()));
+                .sign(Algorithm.HMAC256(userServiceConfigData.getSecretKey() != null ? userServiceConfigData.getSecretKey() : "secret-key"));
     }
 
     /**
