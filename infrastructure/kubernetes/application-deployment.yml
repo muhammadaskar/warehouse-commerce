@@ -129,7 +129,7 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-product-app/product.service:1.0-SNAPSHOT
+          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-warehouse-app/product.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=product&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
@@ -182,7 +182,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-order-app/order.service:1.0-SNAPSHOT
+          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-warehouse-app/order.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
@@ -235,7 +235,7 @@ spec:
     spec:
       containers:
         - name: payment-service
-          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-payment-app/payment.service:1.0-SNAPSHOT
+          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-warehouse-app/payment.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
