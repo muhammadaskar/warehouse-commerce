@@ -38,8 +38,6 @@ kind: Service
 metadata:
   name: warehouse-service
   namespace: default
-  annotations:
-    cloud.google.com/load-balancer-type: "Internal"
   labels:
     app: warehouse-service
 spec:

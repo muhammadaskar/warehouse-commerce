@@ -39,8 +39,6 @@ kind: Service
 metadata:
   name: payment-service
   namespace: default
-  annotations:
-      cloud.google.com/load-balancer-type: "Internal"
   labels:
     app: payment-service
 spec:
