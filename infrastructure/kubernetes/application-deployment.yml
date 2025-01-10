@@ -2,6 +2,63 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: warehouse-deployment
+  namespace: default
+  labels:
+    app: warehouse-deployment
+spec:
+  selector:
+    matchLabels:
+      app: warehouse-deployment
+  template:
+    metadata:
+      labels:
+        app: warehouse-deployment
+    spec:
+      containers:
+        - name: warehouse-service
+          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-warehouse-app/warehouse.service:1.0-SNAPSHOT
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+            - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
+              value: "gke-confluent-kafka-cp-kafka:9092"
+            - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
+              value: "http://gke-confluent-kafka-cp-schema-registry:8081"
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "1024Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: warehouse-service
+  namespace: default
+  labels:
+    app: warehouse-service
+spec:
+  selector:
+    app: warehouse-deployment
+  ports:
+    - name: warehouse-service-port
+      protocol: TCP
+      port: 8181
+  type: LoadBalancer
+  loadBalancerIP: ""
+
+
+
+
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: user-deployment
   namespace: default
   labels:
@@ -50,29 +107,32 @@ spec:
   type: LoadBalancer
   loadBalancerIP: ""
 
+
+
+
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: warehouse-deployment
+  name: product-deployment
   namespace: default
   labels:
-    app: warehouse-deployment
+    app: product-deployment
 spec:
   selector:
     matchLabels:
-      app: warehouse-deployment
+      app: product-deployment
   template:
     metadata:
       labels:
-        app: warehouse-deployment
+        app: product-deployment
     spec:
       containers:
-        - name: warehouse-service
-          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-warehouse-app/warehouse.service:1.0-SNAPSHOT
+        - name: product-service
+          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-product-app/product.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+              value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=product&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
             - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
               value: "gke-confluent-kafka-cp-kafka:9092"
             - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
@@ -88,16 +148,120 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: warehouse-service
+  name: product-service
   namespace: default
   labels:
-    app: warehouse-service
+    app: product-service
 spec:
   selector:
-    app: warehouse-deployment
+    app: product-deployment
   ports:
-    - name: warehouse-service-port
+    - name: product-service-port
       protocol: TCP
-      port: 8181
+      port: 8383
+  type: LoadBalancer
+  loadBalancerIP: ""
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  namespace: default
+  labels:
+    app: order-deployment
+spec:
+  selector:
+    matchLabels:
+      app: order-deployment
+  template:
+    metadata:
+      labels:
+        app: order-deployment
+    spec:
+      containers:
+        - name: order-service
+          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-order-app/order.service:1.0-SNAPSHOT
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+            - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
+              value: "gke-confluent-kafka-cp-kafka:9092"
+            - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
+              value: "http://gke-confluent-kafka-cp-schema-registry:8081"
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "1024Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: default
+  labels:
+    app: order-service
+spec:
+  selector:
+    app: order-deployment
+  ports:
+    - name: order-service-port
+      protocol: TCP
+      port: 8484
+  type: LoadBalancer
+  loadBalancerIP: ""
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-deployment
+  namespace: default
+  labels:
+    app: payment-deployment
+spec:
+  selector:
+    matchLabels:
+      app: payment-deployment
+  template:
+    metadata:
+      labels:
+        app: payment-deployment
+    spec:
+      containers:
+        - name: payment-service
+          image: asia-southeast2-docker.pkg.dev/neon-framing-440111-n3/com-payment-app/payment.service:1.0-SNAPSHOT
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-service:5432/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
+            - name: KAFKA-CONFIG_BOOTSTRAP-SERVERS
+              value: "gke-confluent-kafka-cp-kafka:9092"
+            - name: KAFKA-CONFIG_SCHEMA-REGISTRY-URL
+              value: "http://gke-confluent-kafka-cp-schema-registry:8081"
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "1024Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: default
+  labels:
+    app: payment-service
+spec:
+  selector:
+    app: payment-deployment
+  ports:
+    - name: payment-service-port
+      protocol: TCP
+      port: 8585
   type: LoadBalancer
   loadBalancerIP: ""
