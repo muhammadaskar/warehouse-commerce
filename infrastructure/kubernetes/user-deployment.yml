@@ -49,6 +49,34 @@ spec:
       port: 8282
   type: LoadBalancer
   loadBalancerIP: ""
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: payment-deployment-hpa
+  namespace: default
+  labels:
+    app: payment-deployment
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: payment-deployment
+    apiVersion: apps/v1
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 100Mi
 
 
 
