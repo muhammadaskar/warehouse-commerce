@@ -53,14 +53,14 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: payment-deployment-hpa
+  name: user-deployment-hpa
   namespace: default
   labels:
-    app: payment-deployment
+    app: user-deployment
 spec:
   scaleTargetRef:
     kind: Deployment
-    name: payment-deployment
+    name: user-deployment
     apiVersion: apps/v1
   minReplicas: 2
   maxReplicas: 4
