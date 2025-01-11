@@ -1,27 +1,22 @@
-# Abaikan semua isi folder target/
-target/*
+target/
 
-# Izinkan file spesifik di root folder target/
-!target/dependency-graph.dot
-!target/dependency-graph.png
-
-# Abaikan file JAR di root folder target/
-target/*.jar
-
-# Maven wrapper
 !.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Ignore IntelliJ IDEA configs
-.idea/
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
 *.iws
 *.iml
 *.ipr
 
-# Ignore VS Code configs
+### VS Code ###
 .vscode/
 
-# Ignore Mac OS files
+### Mac OS ###
 .DS_Store
 
-# Ignore Docker volumes
 ./infrastructure/docker-compose/volumes/
