@@ -1,0 +1,2 @@
+com\ecommerce\app\kafka\consumer\KafkaConsumer.class
+com\ecommerce\app\kafka\consumer\config\KafkaConsumerConfig.class

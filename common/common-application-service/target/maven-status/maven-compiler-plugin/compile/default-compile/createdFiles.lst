@@ -1,0 +1,3 @@
+com\ecommerce\app\common\application\service\dto\header\AuthorizationHeader$AuthorizationHeaderBuilder.class
+com\ecommerce\app\common\application\service\dto\header\AuthorizationHeader.class
+com\ecommerce\app\common\application\service\GlobalVerifyJWT.class

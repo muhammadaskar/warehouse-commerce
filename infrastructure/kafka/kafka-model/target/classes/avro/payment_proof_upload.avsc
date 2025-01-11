@@ -1,0 +1,43 @@
+{
+  "namespace": "com.ecommerce.app.kafka.warehouse.avro.model",
+  "type": "record",
+  "name": "PaymentProofUploadAvroModel",
+  "fields": [
+    {
+      "name": "paymentId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+//    {
+//      "name": "userId",
+//      "type": {
+//        "type": "string",
+//        "logicalType": "uuid"
+//      }
+//    },
+    {
+      "name": "orderId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "paymentOrderStatus",
+      "type": {
+        "type": "enum",
+        "name": "PaymentOrderStatus",
+        "symbols": ["PENDING", "CANCELLED", "PAID", "FAILED", "AWAITING_PAYMENT", "UNDER_REVIEW"]
+      }
+    }
+  ]
+}

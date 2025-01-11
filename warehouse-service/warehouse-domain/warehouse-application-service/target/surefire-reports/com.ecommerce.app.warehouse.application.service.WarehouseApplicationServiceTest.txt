@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ecommerce.app.warehouse.application.service.WarehouseApplicationServiceTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.184 s - in com.ecommerce.app.warehouse.application.service.WarehouseApplicationServiceTest

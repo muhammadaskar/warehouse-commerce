@@ -1,0 +1,15 @@
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\event\WarehouseAdminCreatedEvent.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\UserAddressDomainServiceImpl.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\valueobject\AddressId.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\UserAddressDomainService.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\UserDomainService.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\exception\UserNotFoundException.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\entity\User.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\UserDomainServiceImpl.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\event\UserCreatedEvent.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\entity\UserAddress.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\exception\UserUnauthorized.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\exception\UserException.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\exception\WarehouseException.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\entity\Warehouse.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\user-service\user-domain\user-domain-core\src\main\java\com\ecommerce\app\user\domain\core\exception\UserForbidden.java

@@ -1,0 +1,14 @@
+{
+  "namespace": "com.ecommerce.app.kafka.warehouse.avro.model",
+  "type": "record",
+  "name": "WarehouseCreateAvroModel",
+  "fields": [
+    {
+      "name": "warehouseId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    }
+  ]
+}

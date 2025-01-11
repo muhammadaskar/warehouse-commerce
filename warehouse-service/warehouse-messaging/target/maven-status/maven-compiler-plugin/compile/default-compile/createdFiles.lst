@@ -1,0 +1,11 @@
+com\ecommerce\app\warehouse\messaging\publisher\kafka\CreateWarehouseKafkaMessagePublisher.class
+com\ecommerce\app\warehouse\messaging\publisher\kafka\StockTransferredKafkaMessagePublisher.class
+com\ecommerce\app\warehouse\messaging\publisher\kafka\StockUpdatedKafkaPublisher.class
+com\ecommerce\app\warehouse\messaging\listener\OrderShippedRequestKafkaListener.class
+com\ecommerce\app\warehouse\messaging\publisher\kafka\StockCreatedKafkaPublisher.class
+com\ecommerce\app\warehouse\messaging\publisher\kafka\OrderWarehouseResponseKafkaPublisher.class
+com\ecommerce\app\warehouse\messaging\publisher\kafka\StockTransferredUpdateRequestKafkaPublisher.class
+com\ecommerce\app\warehouse\messaging\publisher\kafka\OrderShippedResponseKafkaPublisher.class
+com\ecommerce\app\warehouse\messaging\listener\OrderPaidRequestKafkaListener.class
+com\ecommerce\app\warehouse\messaging\mapper\WarehouseMessagingDataMapper.class
+com\ecommerce\app\warehouse\messaging\publisher\kafka\StockShippedUpdateKafkaPublisher.class

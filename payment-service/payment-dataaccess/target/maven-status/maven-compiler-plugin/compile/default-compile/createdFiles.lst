@@ -1,0 +1,15 @@
+com\ecommerce\app\payment\dataaccess\order\entity\OrderEntity.class
+com\ecommerce\app\payment\dataaccess\order\mapper\OrderDataAccessMapper.class
+com\ecommerce\app\payment\dataaccess\payment\entity\PaymentEntity.class
+com\ecommerce\app\payment\dataaccess\payment\repository\PaymentJpaRepository.class
+com\ecommerce\app\payment\dataaccess\payment\entity\PaymentEntity$PaymentEntityBuilder.class
+com\ecommerce\app\payment\dataaccess\payment\mapper\PaymentDataAccessMapper.class
+com\ecommerce\app\payment\dataaccess\user\mapper\UserDataAccessMapper.class
+com\ecommerce\app\payment\dataaccess\user\repository\UserJpaRepository.class
+com\ecommerce\app\payment\dataaccess\order\repository\OrderJpaRepository.class
+com\ecommerce\app\payment\dataaccess\user\adapter\UserRepositoryImpl.class
+com\ecommerce\app\payment\dataaccess\user\entity\UserEntity$UserEntityBuilder.class
+com\ecommerce\app\payment\dataaccess\order\adapter\OrderRepositoryImpl.class
+com\ecommerce\app\payment\dataaccess\payment\adapter\PaymentRepositoryImpl.class
+com\ecommerce\app\payment\dataaccess\order\entity\OrderEntity$OrderEntityBuilder.class
+com\ecommerce\app\payment\dataaccess\user\entity\UserEntity.class

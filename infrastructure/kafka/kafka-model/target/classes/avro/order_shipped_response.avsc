@@ -1,0 +1,45 @@
+{
+  "namespace": "com.ecommerce.app.kafka.warehouse.avro.model",
+  "type": "record",
+  "name": "OrderShippedResponseAvroModel",
+  "fields": [
+    {
+      "name": "orderId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "warehouseId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "orderStatus",
+      "type": {
+        "type": "enum",
+        "name": "OrderStatus",
+        "symbols": [
+          "AWAITING_PAYMENT",
+          "PENDING",
+          "PROCESSED",
+          "APPROVED",
+          "SHIPPED",
+          "CONFIRMED",
+          "CANCELLING",
+          "CANCELLED"
+        ]
+      }
+    }
+  ]
+}

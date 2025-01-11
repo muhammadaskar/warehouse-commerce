@@ -1,0 +1,4 @@
+com\ecommerce\app\user\messaging\publisher\kafka\UserCreatedMessagePublisherImpl.class
+com\ecommerce\app\user\messaging\mapper\UserMessagingDataMapper.class
+com\ecommerce\app\user\messaging\listener\kafka\WarehouseResponseKafkaListener.class
+com\ecommerce\app\user\messaging\publisher\kafka\WarehouseAdminCreatedMessagePublisherImpl.class

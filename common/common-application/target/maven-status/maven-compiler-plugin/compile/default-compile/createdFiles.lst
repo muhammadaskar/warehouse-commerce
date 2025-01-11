@@ -1,0 +1,4 @@
+com\ecommerce\app\common\application\handler\GlobalExceptionHandler.class
+com\ecommerce\app\common\application\handler\ErrorDTO$ErrorDTOBuilder.class
+com\ecommerce\app\common\application\security\annotation\RequiresRole.class
+com\ecommerce\app\common\application\handler\ErrorDTO.class

@@ -1,0 +1,41 @@
+digraph "order-service" {
+  node [shape="box",style="rounded",fontname="Helvetica",fontsize="14"]
+  edge [fontsize="10",fontname="Helvetica"]
+
+  // Node Definitions:
+  "com.ecommerce.app:order-domain-core:jar:compile"[label=<order-domain-core>]
+  "com.ecommerce.app:common-domain:jar:compile"[label=<common-domain>]
+  "com.ecommerce.app:order-application-service:jar:compile"[label=<order-application-service>]
+  "com.ecommerce.app:saga:jar:compile"[label=<saga>]
+  "com.ecommerce.app:common-application-service:jar:compile"[label=<common-application-service>]
+  "com.ecommerce.app:common-application:jar:compile"[label=<common-application>]
+  "com.ecommerce.app:order-application:jar:compile"[label=<order-application>]
+  "com.ecommerce.app:order-dataaccess:jar:compile"[label=<order-dataaccess>]
+  "com.ecommerce.app:order-messaging:jar:compile"[label=<order-messaging>]
+  "com.ecommerce.app:kafka-producer:jar:compile"[label=<kafka-producer>]
+  "com.ecommerce.app:kafka-config-data:jar:compile"[label=<kafka-config-data>]
+  "com.ecommerce.app:kafka-consumer:jar:compile"[label=<kafka-consumer>]
+  "com.ecommerce.app:kafka-model:jar:compile"[label=<kafka-model>]
+  "com.ecommerce.app:order-container:jar:compile"[label=<order-container>]
+
+  // Edge Definitions:
+  "com.ecommerce.app:order-domain-core:jar:compile" -> "com.ecommerce.app:common-domain:jar:compile"
+  "com.ecommerce.app:order-application-service:jar:compile" -> "com.ecommerce.app:order-domain-core:jar:compile"
+  "com.ecommerce.app:order-application-service:jar:compile" -> "com.ecommerce.app:saga:jar:compile"
+  "com.ecommerce.app:order-application-service:jar:compile" -> "com.ecommerce.app:common-application-service:jar:compile"
+  "com.ecommerce.app:order-application-service:jar:compile" -> "com.ecommerce.app:common-domain:jar:compile"
+  "com.ecommerce.app:common-application:jar:compile" -> "com.ecommerce.app:common-domain:jar:compile"
+  "com.ecommerce.app:order-application:jar:compile" -> "com.ecommerce.app:common-application:jar:compile"
+  "com.ecommerce.app:order-application:jar:compile" -> "com.ecommerce.app:order-application-service:jar:compile"
+  "com.ecommerce.app:order-dataaccess:jar:compile" -> "com.ecommerce.app:order-application-service:jar:compile"
+  "com.ecommerce.app:order-messaging:jar:compile" -> "com.ecommerce.app:order-application-service:jar:compile"
+  "com.ecommerce.app:kafka-producer:jar:compile" -> "com.ecommerce.app:kafka-config-data:jar:compile"
+  "com.ecommerce.app:order-messaging:jar:compile" -> "com.ecommerce.app:kafka-producer:jar:compile"
+  "com.ecommerce.app:order-messaging:jar:compile" -> "com.ecommerce.app:kafka-consumer:jar:compile"
+  "com.ecommerce.app:order-messaging:jar:compile" -> "com.ecommerce.app:kafka-model:jar:compile"
+  "com.ecommerce.app:order-container:jar:compile" -> "com.ecommerce.app:order-domain-core:jar:compile"
+  "com.ecommerce.app:order-container:jar:compile" -> "com.ecommerce.app:order-application-service:jar:compile"
+  "com.ecommerce.app:order-container:jar:compile" -> "com.ecommerce.app:order-application:jar:compile"
+  "com.ecommerce.app:order-container:jar:compile" -> "com.ecommerce.app:order-dataaccess:jar:compile"
+  "com.ecommerce.app:order-container:jar:compile" -> "com.ecommerce.app:order-messaging:jar:compile"
+}

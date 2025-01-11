@@ -1,0 +1,12 @@
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\event\ProductCreatedEvent.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\exception\UserUnauthorized.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\exception\UserNotFoundException.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\entity\Product.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\UserDomainServiceImpl.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\entity\User.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\exception\ProductException.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\ProductDomainService.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\UserDomainService.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\exception\ProductNotFound.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\exception\UserForbidden.java
+C:\Users\TECH-MUHAMMAD ASKAR\IdeaProjects\e-commerce\product-service\product-domain\product-domain-core\src\main\java\com\ecommerce\app\product\domain\core\ProductDomainServiceImpl.java
