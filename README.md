@@ -17,7 +17,7 @@ link to the high level design: [High Level Design](https://drive.google.com/file
 link to the domain driven design: [Domain Driven Design](https://drive.google.com/file/d/18we8XNhFTgDHbGVsd_wtF86V4QhJeNM9/view?usp=sharing)
 
 ### Dependency Diagram
-<img src="https://github.com/muhammadaskar/warehouse-commerce/blob/development/target/dependency-graph.png" width="1250" height="400">
+<img src="https://github.com/muhammadaskar/warehouse-commerce/blob/development/target/dependency-graph.png" width="1000" height="200">
 
 ### Service Responsibility
 - Warehouse service: responsible for managing the warehouse, stock in the warehouse, and transfer stock between warehouses.
