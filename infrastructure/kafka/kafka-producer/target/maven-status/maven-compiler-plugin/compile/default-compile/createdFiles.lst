@@ -1,6 +1,0 @@
-com\ecommerce\app\kafka\producer\KafkaMessageHelper$1.class
-com\ecommerce\app\kafka\producer\KafkaMessageHelper.class
-com\ecommerce\app\kafka\producer\service\KafkaProducer.class
-com\ecommerce\app\kafka\producer\exception\KafkaProducerException.class
-com\ecommerce\app\kafka\producer\KafkaProducerConfig.class
-com\ecommerce\app\kafka\producer\service\impl\KafkaProducerImpl.class

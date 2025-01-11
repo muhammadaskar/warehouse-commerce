@@ -1,9 +1,12 @@
-# Exclude all files in target/
+# Abaikan semua isi folder target/
 target/*
 
-# Allow dependency graph output files
+# Izinkan file spesifik di root folder target/
 !target/dependency-graph.dot
 !target/dependency-graph.png
+
+# Abaikan file JAR di root folder target/
+target/*.jar
 
 # Maven wrapper
 !.mvn/wrapper/maven-wrapper.jar

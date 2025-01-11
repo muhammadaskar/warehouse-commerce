@@ -1,4 +1,0 @@
-com\ecommerce\app\payment\application\middleware\JwtInterceptor.class
-com\ecommerce\app\payment\application\config\ApplicationConfig.class
-com\ecommerce\app\payment\application\exception\handler\PaymentGlobalExceptionHandler.class
-com\ecommerce\app\payment\application\rest\PaymentController.class

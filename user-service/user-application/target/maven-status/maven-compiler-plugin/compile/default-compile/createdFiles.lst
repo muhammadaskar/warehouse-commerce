@@ -1,4 +1,0 @@
-com\ecommerce\app\application\config\ApplicationConfig.class
-com\ecommerce\app\application\middleware\JwtInterceptor.class
-com\ecommerce\app\application\exception\handler\UserGlobalExceptionHandler.class
-com\ecommerce\app\application\rest\UserController.class

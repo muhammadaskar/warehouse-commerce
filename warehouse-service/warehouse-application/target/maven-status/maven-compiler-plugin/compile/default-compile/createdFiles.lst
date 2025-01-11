@@ -1,4 +1,0 @@
-com\ecommerce\app\warehouse\application\exception\WarehouseGlobalExceptionHandler.class
-com\ecommerce\app\warehouse\application\rest\WarehouseController.class
-com\ecommerce\app\warehouse\application\middleware\JwtInterceptor.class
-com\ecommerce\app\warehouse\application\config\ApplicationConfig.class
