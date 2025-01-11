@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  warehouse-service:
+    image: dockermuhammadaskar/warehouse-service:1.0-SNAPSHOT
+    container_name: warehouse-service
+    ports:
+      - "8181:8181"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+      - KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092
+      - KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081
+    networks:
+      - ecommerce-app
+    restart: always
+
+  user-service:
+    image: dockermuhammadaskar/user-service:1.0-SNAPSHOT
+    container_name: user-service
+    ports:
+      - "8282:8282"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres?currentSchema=user&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+      - KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092
+      - KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081
+    networks:
+      - ecommerce-app
+    restart: always
+
+  product-service:
+    image: dockermuhammadaskar/product-service:1.0-SNAPSHOT
+    container_name: product-service
+    ports:
+      - "8383:8383"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres?currentSchema=product&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+      - KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092
+      - KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081
+    networks:
+      - ecommerce-app
+    restart: always
+
+  order-service:
+    image: dockermuhammadaskar/order-service:1.0-SNAPSHOT
+    container_name: order-service
+    ports:
+      - "8484:8484"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+      - KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092
+      - KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081
+    networks:
+      - ecommerce-app
+    restart: always
+
+  payment-service:
+    image: dockermuhammadaskar/payment-service:1.0-SNAPSHOT
+    container_name: payment-service
+    ports:
+      - "8585:8585"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
+      - KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092
+      - KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081
+    networks:
+      - ecommerce-app
+    restart: always

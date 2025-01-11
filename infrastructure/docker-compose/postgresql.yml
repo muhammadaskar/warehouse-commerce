@@ -12,11 +12,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - my_network
+      - ecommerce-app
 
 volumes:
   postgres_data:
 
-networks:
-  my_network:
-    driver: bridge
