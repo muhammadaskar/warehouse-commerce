@@ -36,22 +36,17 @@ public class PaymentProofUploadedMessagePublisherImpl implements PaymentProofUpl
             PaymentProofUploadAvroModel paymentProofUploadAvroModel =
                     paymentMessagingDataMapper.paymentProofUploadEventToPaymentProofUploadAvroModel(event);
 
-            CompletableFuture.runAsync(() -> {
-                kafkaProducer.send(paymentConfigData.getPaymentProofUploadRequestTopicName(),
-                        paymentId,
-                        paymentProofUploadAvroModel,
-                        paymentKafkaMessageHelper
-                                .getKafkaCallback(paymentConfigData.getPaymentProofUploadRequestTopicName(),
-                                        paymentProofUploadAvroModel,
-                                        paymentId,
-                                        "PaymentProofUploadAvroModel"));
 
-                log.info("PaymentProofUploadAvroModel sent to kafka for payment id: {}", paymentId);
-            }).exceptionally(e -> {
-                log.error("Error while sending PaymentProofUploadAvroModel message" +
-                        " to kafka with payment id: {}, error: {}", paymentId, e.getMessage());
-                return null;
-            });
+            kafkaProducer.send(paymentConfigData.getPaymentProofUploadRequestTopicName(),
+                    paymentId,
+                    paymentProofUploadAvroModel,
+                    paymentKafkaMessageHelper
+                            .getKafkaCallback(paymentConfigData.getPaymentProofUploadRequestTopicName(),
+                                    paymentProofUploadAvroModel,
+                                    paymentId,
+                                    "PaymentProofUploadAvroModel"));
+
+            log.info("PaymentProofUploadAvroModel sent to kafka for payment id: {}", paymentId);
         } catch (Exception e) {
             log.error("Error while sending PaymentProofUploadAvroModel message" +
                     " to kafka with payment id: {}, error: {}", paymentId, e.getMessage());

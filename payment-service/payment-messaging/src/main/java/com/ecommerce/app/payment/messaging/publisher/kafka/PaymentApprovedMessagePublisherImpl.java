@@ -37,22 +37,17 @@ public class PaymentApprovedMessagePublisherImpl implements PaymentApprovedMessa
             PaymentApprovedRequestAvroModel paymentApprovedRequestAvroModel =
                     paymentMessagingDataMapper.paymentApprovedEventToPaymentApprovedRequestAvroModel(event);
 
-            CompletableFuture.runAsync(() -> {
-                kafkaProducer.send(paymentConfigData.getPaymentApprovedRequestTopicName(),
-                        paymentId,
-                        paymentApprovedRequestAvroModel,
-                        paymentKafkaMessageHelper
-                                .getKafkaCallback(paymentConfigData.getPaymentApprovedRequestTopicName(),
-                                        paymentApprovedRequestAvroModel,
-                                        paymentId,
-                                        "PaymentApprovedRequestAvroModel"));
 
-                log.info("PaymentApprovedRequestAvroModel sent to kafka for payment id: {}", paymentId);
-            }).exceptionally(e -> {
-                log.error("Error while sending PaymentApprovedRequestAvroModel message" +
-                        " to kafka with payment id: {}, error: {}", paymentId, e.getMessage());
-                return null;
-            });
+            kafkaProducer.send(paymentConfigData.getPaymentApprovedRequestTopicName(),
+                    paymentId,
+                    paymentApprovedRequestAvroModel,
+                    paymentKafkaMessageHelper
+                            .getKafkaCallback(paymentConfigData.getPaymentApprovedRequestTopicName(),
+                                    paymentApprovedRequestAvroModel,
+                                    paymentId,
+                                    "PaymentApprovedRequestAvroModel"));
+
+            log.info("PaymentApprovedRequestAvroModel sent to kafka for payment id: {}", paymentId);
         } catch (Exception e) {
             log.error("Error while sending PaymentApprovedRequestAvroModel message" +
                     " to kafka with payment id: {}, error: {}", paymentId, e.getMessage());
