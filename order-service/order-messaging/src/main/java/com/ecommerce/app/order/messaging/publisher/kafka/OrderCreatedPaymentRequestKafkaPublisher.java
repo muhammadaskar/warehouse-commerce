@@ -35,21 +35,16 @@ public class OrderCreatedPaymentRequestKafkaPublisher implements com.ecommerce.a
         try {
             PaymentRequestAvroModel paymentRequestAvroModel = orderMessagingDataMapper.orderCreatedEventToPaymentRequestAvroModel(event);
 
-            CompletableFuture.runAsync(() -> {
-                kafkaProducer.send(orderConfigData.getPaymentRequestTopicName(),
-                        orderId,
-                        paymentRequestAvroModel,
-                        orderKafkaMessageHelper.
-                                getKafkaCallback(orderConfigData.getPaymentRequestTopicName(),
-                                        paymentRequestAvroModel,
-                                        orderId,
-                                        "paymentRequestAvroModel"));
+            kafkaProducer.send(orderConfigData.getPaymentRequestTopicName(),
+                    orderId,
+                    paymentRequestAvroModel,
+                    orderKafkaMessageHelper.
+                            getKafkaCallback(orderConfigData.getPaymentRequestTopicName(),
+                                    paymentRequestAvroModel,
+                                    orderId,
+                                    "paymentRequestAvroModel"));
 
-                log.info("Publishing order created event for payment with order id: {}", paymentRequestAvroModel.getOrderId());
-            }).exceptionally(e -> {
-                log.error("Error occurred while publishing order created event for payment with order id: {}", event.getOrder().getId().getValue(), e);
-                return null;
-            });
+            log.info("Publishing order created event for payment with order id: {}", paymentRequestAvroModel.getOrderId());
         } catch (Exception e) {
             log.error("Error occurred while preparing to publish order created event for payment with order id: {}", event.getOrder().getId().getValue(), e);
         }

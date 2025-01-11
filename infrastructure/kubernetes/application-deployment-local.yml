@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: warehouse-service
-          image: com.ecommerce.app/warehouse.service:1.0-SNAPSHOT
+          image: dockermuhammadaskar/warehouse.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=warehouse&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
@@ -49,6 +49,35 @@ spec:
       port: 8181
   type: LoadBalancer
   loadBalancerIP: ""
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: warehouse-deployment-hpa
+  namespace: default
+  labels:
+    app: warehouse-deployment
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: warehouse-deployment
+    apiVersion: apps/v1
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 100Mi
+
 
 
 
@@ -71,7 +100,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: com.ecommerce.app/user.service:1.0-SNAPSHOT
+          image: dockermuhammadaskar/user.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=user&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
@@ -103,6 +132,35 @@ spec:
       port: 8282
   type: LoadBalancer
   loadBalancerIP: ""
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: user-deployment-hpa
+  namespace: default
+  labels:
+    app: user-deployment
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: user-deployment
+    apiVersion: apps/v1
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 100Mi
+
 
 
 ---
@@ -124,7 +182,7 @@ spec:
     spec:
       containers:
         - name: product-service
-          image: com.ecommerce.app/product.service:1.0-SNAPSHOT
+          image: dockermuhammadaskar/product.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=product&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
@@ -161,6 +219,35 @@ spec:
 
 
 ---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: product-deployment-hpa
+  namespace: default
+  labels:
+    app: product-deployment
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: product-deployment
+    apiVersion: apps/v1
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 100Mi
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -179,7 +266,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: com.ecommerce.app/order.service:1.0-SNAPSHOT
+          image: dockermuhammadaskar/order.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
@@ -214,6 +301,36 @@ spec:
 
 
 ---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: order-deployment-hpa
+  namespace: default
+  labels:
+    app: order-deployment
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: order-deployment
+    apiVersion: apps/v1
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 100Mi
+
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -232,7 +349,7 @@ spec:
     spec:
       containers:
         - name: payment-service
-          image: com.ecommerce.app/payment.service:1.0-SNAPSHOT
+          image: dockermuhammadaskar/payment.service:1.0-SNAPSHOT
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://host.docker.internal:5432/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified"
