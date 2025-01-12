@@ -11,10 +11,10 @@ link to the schema design: [Schema Design](https://drive.google.com/drive/folder
 
 ## Documentation
 ### High Level Design
-link to the high level design: [High Level Design](https://drive.google.com/file/d/18we8XNhFTgDHbGVsd_wtF86V4QhJeNM9/view?usp=sharing)
+link to the high level design: [High Level Design](https://tinyurl.com/high-level-design-askar)
 
 ### Domain Driven Design
-link to the domain driven design: [Domain Driven Design](https://drive.google.com/file/d/18we8XNhFTgDHbGVsd_wtF86V4QhJeNM9/view?usp=sharing)
+link to the domain driven design: [Domain Driven Design](https://tinyurl.com/ddd-askar)
 
 ### Dependency Diagram
 ![dependency-graph](dependency-graph.png)
