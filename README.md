@@ -12,6 +12,7 @@ link to the schema design: [Schema Design](https://drive.google.com/drive/folder
 ## Documentation
 ### High Level Design
 link to the high level design: [High Level Design](https://tinyurl.com/high-level-design-askar)
+![high-level-design](high-level-design.gif)
 
 ### Domain Driven Design
 link to the domain driven design: [Domain Driven Design](https://tinyurl.com/ddd-askar)
