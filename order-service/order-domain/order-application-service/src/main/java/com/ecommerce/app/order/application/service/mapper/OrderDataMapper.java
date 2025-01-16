@@ -18,6 +18,8 @@ public class OrderDataMapper {
         return Product.newBuilder()
                 .withId(new ProductId(UUID.fromString(productCreatedRequest.getProductId())))
                 .withSku(productCreatedRequest.getSku())
+                .withName(productCreatedRequest.getName())
+                .withImageUrl(productCreatedRequest.getImageUrl())
                 .withPrice(new Money(productCreatedRequest.getPrice()))
                 .build();
     }
@@ -144,6 +146,8 @@ public class OrderDataMapper {
         return ProductResponse.builder()
                 .productId(orderItem.getProduct().getId().getValue())
                 .sku(orderItem.getProduct().getSku())
+                .name(orderItem.getProduct().getName())
+                .imageUrl(orderItem.getProduct().getImageUrl())
                 .build();
     }
 }

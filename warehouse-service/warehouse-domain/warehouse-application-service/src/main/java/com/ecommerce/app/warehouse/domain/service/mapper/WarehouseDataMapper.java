@@ -28,6 +28,8 @@ public class WarehouseDataMapper {
         return Product.newBuilder()
                 .withId(new ProductId(UUID.fromString(productCreatedRequest.getProductId())))
                 .withName(productCreatedRequest.getName())
+                .withImageUrl(productCreatedRequest.getImageUrl())
+                .withPrice(new Money(productCreatedRequest.getPrice()))
                 .build();
     }
 
@@ -196,6 +198,8 @@ public class WarehouseDataMapper {
                 .product(ProductResponse.builder()
                         .productId(stock.getProductId().getValue())
                         .name(stock.getProduct().getName())
+                        .imageUrl(stock.getProduct().getImageUrl())
+                        .price(stock.getProduct().getPrice().getAmount().floatValue())
                         .build())
                 .build();
     }

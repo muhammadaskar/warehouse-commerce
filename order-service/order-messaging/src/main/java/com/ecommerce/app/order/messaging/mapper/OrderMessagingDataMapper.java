@@ -22,6 +22,7 @@ public class OrderMessagingDataMapper {
                 .productId(productCreatedRequestAvroModel.getId().toString())
                 .sku(productCreatedRequestAvroModel.getSku())
                 .name(productCreatedRequestAvroModel.getName())
+                .imageUrl(productCreatedRequestAvroModel.getImageUrl())
                 .price(productCreatedRequestAvroModel.getPrice())
                 .build();
     }

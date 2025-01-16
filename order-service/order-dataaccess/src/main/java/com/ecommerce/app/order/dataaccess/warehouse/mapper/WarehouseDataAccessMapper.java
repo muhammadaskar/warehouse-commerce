@@ -64,7 +64,6 @@ public class WarehouseDataAccessMapper {
                         .withId(new ProductId(productEntity.getId()))
                         .withSku(productEntity.getSku())
                         .withPrice(new Money(productEntity.getPrice()))
-//                        .withStocks(stockEntityToStock(productEntity.getStock()))
                         .build())
                 .collect(Collectors.toList());
     }
@@ -76,7 +75,6 @@ public class WarehouseDataAccessMapper {
                         .withProductId(new ProductId(stockEntity.getProduct().getId()))
                         .withWarehouseId(new WarehouseId(stockEntity.getWarehouse().getId()))
                         .withQuantity(stockEntity.getQuantity())
-//                        .withProducts(productEntityToProduct(List.of(stockEntity.getProduct())))
                         .build())
                 .collect(Collectors.toList());
     }

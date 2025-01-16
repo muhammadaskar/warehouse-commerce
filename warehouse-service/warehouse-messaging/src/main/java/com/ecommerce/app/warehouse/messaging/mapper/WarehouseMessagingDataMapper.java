@@ -30,6 +30,8 @@ public class WarehouseMessagingDataMapper {
         return ProductCreatedRequest.builder()
                 .productId(productCreatedRequestAvroModel.getId().toString())
                 .name(productCreatedRequestAvroModel.getName())
+                .imageUrl(productCreatedRequestAvroModel.getImageUrl())
+                .price(productCreatedRequestAvroModel.getPrice())
                 .build();
     }
 

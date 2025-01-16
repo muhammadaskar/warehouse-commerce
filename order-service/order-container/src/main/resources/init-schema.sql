@@ -27,6 +27,8 @@ DROP TABLE IF EXISTS "order".products CASCADE;
 CREATE TABLE products (
     id UUID PRIMARY KEY,
     sku VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    image_url VARCHAR(500),
     price DOUBLE PRECISION NOT NULL
 );
 
@@ -109,8 +111,8 @@ VALUES ('8b622abe-b4c6-4540-84df-7dc0e9752529', 'Indomarco 1', 'West Ancol Stree
 INSERT INTO "order".warehouses (id, name, street, postal_code, city, latitude, longitude)
 VALUES ('a04adf69-11a5-440f-a6b9-56d9a718e9a7', 'Indomarco 2', 'Ancol Street', '14430', 'North Jakarta', '-6.1213429', '106.8141887');
 
-INSERT INTO "order".products (id, sku, price) VALUES ('111e4567-e89b-12d3-a456-426614174000','SKU-001', 15000);
-INSERT INTO "order".products (id, sku, price) VALUES ('111e4567-e89b-12d3-a456-426614174001','SKU-002', 20000);
+INSERT INTO "order".products (id, sku, name, image_url, price) VALUES ('111e4567-e89b-12d3-a456-426614174000','SKU-001', 'Kecap Indofood', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp5_8kTMBT3pzPZ8saWQFeXaW4wh2WzTosNw&s', 15000);
+INSERT INTO "order".products (id, sku, name, image_url, price) VALUES ('111e4567-e89b-12d3-a456-426614174001','SKU-002', 'Susu Indomilk', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_hex_Z47zL-Um5Y-OlVTi4S_VIoxMMEhwVw&s', 20000);
 
 INSERT INTO "order".stocks (id, warehouse_id, product_id, quantity) VALUES ('111e4567-e89b-12d3-a456-426614174002',  '8b622abe-b4c6-4540-84df-7dc0e9752529', '111e4567-e89b-12d3-a456-426614174000', 100);
 INSERT INTO "order".stocks (id, warehouse_id, product_id, quantity) VALUES ('111e4567-e89b-12d3-a456-426614174004',  'a04adf69-11a5-440f-a6b9-56d9a718e9a7', '111e4567-e89b-12d3-a456-426614174001', 100);
