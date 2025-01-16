@@ -8,6 +8,7 @@ services:
       
       echo -e 'Deleting kafka topics'
       kafka-topics --bootstrap-server kafka-broker-1:9092 --topic user-create-topic --delete --if-exists
+      kafka-topics --bootstrap-server kafka-broker-1:9092 --topic product-created-topic --delete --if-exists
       kafka-topics --bootstrap-server kafka-broker-1:9092 --topic payment-request-topic --delete --if-exists
       kafka-topics --bootstrap-server kafka-broker-1:9092 --topic payment-proof-upload-request-topic --delete --if-exists
       kafka-topics --bootstrap-server kafka-broker-1:9092 --topic payment-proof-upload-response-topic --delete --if-exists
@@ -28,6 +29,7 @@ services:
       
       echo -e 'Creating kafka topics with multiple partitions and higher replication factor'
       kafka-topics --bootstrap-server kafka-broker-1:9092 --create --topic user-create-topic --partitions 3 --replication-factor 2
+      kafka-topics --bootstrap-server kafka-broker-1:9092 --create --topic product-created-topic --partitions 3 --replication-factor 2
       kafka-topics --bootstrap-server kafka-broker-1:9092 --create --topic payment-request-topic --partitions 3 --replication-factor 2
       kafka-topics --bootstrap-server kafka-broker-1:9092 --create --topic payment-proof-upload-request-topic --partitions 3 --replication-factor 2
       kafka-topics --bootstrap-server kafka-broker-1:9092 --create --topic payment-proof-upload-response-topic --partitions 3 --replication-factor 2

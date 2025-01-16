@@ -27,9 +27,6 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<StockEntity> stock;
 
-//    @OneToOne(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private OrderItemEntity orderItem;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

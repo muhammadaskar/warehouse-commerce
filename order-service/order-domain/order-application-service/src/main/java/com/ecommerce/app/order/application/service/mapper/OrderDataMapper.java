@@ -2,12 +2,10 @@ package com.ecommerce.app.order.application.service.mapper;
 
 import com.ecommerce.app.common.domain.valueobject.*;
 import com.ecommerce.app.order.application.service.dto.create.*;
-import com.ecommerce.app.order.application.service.dto.message.OrderWarehouseResponse;
-import com.ecommerce.app.order.application.service.dto.message.PaymentApprovedRequest;
-import com.ecommerce.app.order.application.service.dto.message.PaymentProofUploadRequest;
-import com.ecommerce.app.order.application.service.dto.message.StockTransferredUpdate;
+import com.ecommerce.app.order.application.service.dto.message.*;
 import com.ecommerce.app.order.domain.core.entity.Order;
 import com.ecommerce.app.order.domain.core.entity.OrderItem;
+import com.ecommerce.app.order.domain.core.entity.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +14,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderDataMapper {
+    public Product productCreatedRequestToProduct(ProductCreatedRequest productCreatedRequest) {
+        return Product.newBuilder()
+                .withId(new ProductId(UUID.fromString(productCreatedRequest.getProductId())))
+                .withSku(productCreatedRequest.getSku())
+                .withPrice(new Money(productCreatedRequest.getPrice()))
+                .build();
+    }
+
     public Order createOrderCommandToOrder(CreateOrderCommand createOrderCommand) {
         return Order.newBuilder()
                 .withUserId(new UserId(createOrderCommand.getUserId()))

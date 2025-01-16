@@ -9,4 +9,5 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "product-service")
 public class ProductConfigData {
     private String secretKey;
+    private String productCreatedTopicName;
 }

@@ -34,6 +34,22 @@ public class ProductDataAccessMapper {
                 .build();
     }
 
+    public ProductEntity productToProductEntityWithoutStock(Product product) {
+        return ProductEntity.builder()
+                .id(product.getId().getValue())
+                .sku(product.getSku())
+                .price(product.getPrice().getAmount())
+                .build();
+    }
+
+    public Product productEntityToProductWithoutStock(ProductEntity productEntity) {
+        return Product.newBuilder()
+                .withId(new ProductId(productEntity.getId()))
+                .withSku(productEntity.getSku())
+                .withPrice(new Money(productEntity.getPrice()))
+                .build();
+    }
+
     private List<Stock> stockEntityToStock(List<StockEntity> stockEntities) {
         return stockEntities.stream()
                 .map(stockEntity -> Stock.builder()

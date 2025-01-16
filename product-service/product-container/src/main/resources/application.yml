@@ -9,6 +9,7 @@ logging:
 
 product-service:
   secret-key: secret-key
+  product-created-topic-name: product-created-topic
 
 spring:
   jpa:

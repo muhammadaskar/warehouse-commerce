@@ -22,6 +22,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public Product save(Product product) {
+        return productDataAccessMapper.productEntityToProduct(
+                productJpaRepository.save(productDataAccessMapper.productToProductEntity(product)));
+    }
+
+    @Override
     public Optional<Product> findById(ProductId productId) {
         return productJpaRepository.findById(productId.getValue())
                 .map(productDataAccessMapper::productEntityToProduct);

@@ -6,6 +6,7 @@ import com.ecommerce.app.warehouse.domain.core.valueobject.StockJournalId;
 import com.ecommerce.app.warehouse.domain.service.dto.create.*;
 import com.ecommerce.app.warehouse.domain.service.dto.message.OrderPaidRequest;
 import com.ecommerce.app.warehouse.domain.service.dto.message.OrderShippedRequest;
+import com.ecommerce.app.warehouse.domain.service.dto.message.ProductCreatedRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
@@ -20,6 +21,13 @@ public class WarehouseDataMapper {
         return Warehouse.builder()
                 .withName(command.getName())
                 .withAddress(warehouseAddressToStreetAddress(command))
+                .build();
+    }
+
+    public Product productCreatedRequestToProduct(ProductCreatedRequest productCreatedRequest) {
+        return Product.newBuilder()
+                .withId(new ProductId(UUID.fromString(productCreatedRequest.getProductId())))
+                .withName(productCreatedRequest.getName())
                 .build();
     }
 

@@ -21,6 +21,10 @@ public class ProductCreatedEvent implements DomainEvent {
         return product;
     }
 
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     @Override
     public void fire() {
         productCreatedEventDomainEventPublisher.publish(this);

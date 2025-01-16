@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductRepository {
+    Product save(Product product);
     List<Product> findAll();
     Optional<Product> findById(ProductId productId);
     List<Product> findAllByProductIdWithStock(ProductId productId);

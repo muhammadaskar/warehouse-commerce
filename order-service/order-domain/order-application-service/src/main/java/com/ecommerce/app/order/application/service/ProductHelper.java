@@ -1,6 +1,8 @@
 package com.ecommerce.app.order.application.service;
 
 import com.ecommerce.app.common.domain.valueobject.ProductId;
+import com.ecommerce.app.order.application.service.dto.message.ProductCreatedRequest;
+import com.ecommerce.app.order.application.service.mapper.OrderDataMapper;
 import com.ecommerce.app.order.application.service.ports.output.ProductRepository;
 import com.ecommerce.app.order.domain.core.entity.Product;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +15,16 @@ import java.util.Optional;
 public class ProductHelper {
 
     private final ProductRepository productRepository;
+    private final OrderDataMapper orderDataMapper;
 
-    public ProductHelper(ProductRepository productRepository) {
+    public ProductHelper(ProductRepository productRepository, OrderDataMapper orderDataMapper) {
         this.productRepository = productRepository;
+        this.orderDataMapper = orderDataMapper;
+    }
+
+    public Product createProduct(ProductCreatedRequest productCreatedRequest) {
+        Product product = orderDataMapper.productCreatedRequestToProduct(productCreatedRequest);
+        return productRepository.save(product);
     }
 
     /**
