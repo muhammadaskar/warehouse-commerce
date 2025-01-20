@@ -48,7 +48,8 @@ spec:
     - name: payment-service-port
       protocol: TCP
       port: 8585
-  type: LoadBalancer
+      targetPort: 8585
+  type: ClusterIP
   loadBalancerIP: ""
 ---
 apiVersion: autoscaling/v2
