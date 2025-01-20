@@ -47,8 +47,8 @@ spec:
     - name: user-service-port
       protocol: TCP
       port: 8282
-  type: LoadBalancer
-  loadBalancerIP: ""
+      targetPort: 8282
+  type: ClusterIP
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -77,6 +77,3 @@ spec:
         target:
           type: AverageValue
           averageValue: 100Mi
-
-
-
