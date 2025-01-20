@@ -29,6 +29,7 @@ services:
       - kong-database
     networks:
       - kong-network
+      - ecommerce-app
     restart: on-failure
 
   kong-database:
