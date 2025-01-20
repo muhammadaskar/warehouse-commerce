@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kong-database
+  labels:
+    app: kong-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kong-database
+  template:
+    metadata:
+      labels:
+        app: kong-database
+    spec:
+      containers:
+        - name: kong-database
+          image: postgres:alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "kong"
+            - name: POSTGRES_USER
+              value: "kong"
+            - name: POSTGRES_PASSWORD
+              value: "kong"
+          livenessProbe:
+            exec:
+              command:
+                - "pg_isready"
+                - "-U"
+                - "kong"
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - "pg_isready"
+                - "-U"
+                - "kong"
+            initialDelaySeconds: 5
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kong-database
+spec:
+  selector:
+    app: kong-database
+  ports:
+    - port: 5432
+      targetPort: 5432

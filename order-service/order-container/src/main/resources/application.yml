@@ -9,6 +9,7 @@ logging:
 
 order-service:
   secret-key: secret-key
+  product-created-topic-name: product-created-topic
   payment-request-topic-name: payment-request-topic
   payment-proof-upload-request-topic-name: payment-proof-upload-request-topic
   payment-proof-upload-response-topic-name: payment-proof-upload-response-topic
@@ -65,8 +66,8 @@ kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
   user-consumer-group-id: user-topic-consumer
+  product-order-created-consumer-group-id: product-order-created-topic-consumer
   warehouse-consumer-group-id: warehouse-topic-consumer
-  product-consumer-group-id: product-topic-consumer
   payment-consumer-group-id: payment-topic-consumer
   payment-approved-consumer-group-id: payment-approved-topic-consumer
   order-warehouse-response-consumer-group-id: order-warehouse-response-topic-consumer

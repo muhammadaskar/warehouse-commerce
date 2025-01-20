@@ -1,6 +1,7 @@
 package com.ecommerce.app.user.application.service;
 
 import com.ecommerce.app.common.application.service.GlobalVerifyJWT;
+import com.ecommerce.app.mail.service.EmailSender;
 import com.ecommerce.app.user.application.service.ports.output.message.publisher.user.UserCreatedMessagePublisher;
 import com.ecommerce.app.user.application.service.ports.output.message.publisher.user.WarehouseAdminCreatedMessagePublisher;
 import com.ecommerce.app.user.application.service.ports.output.repository.UserAddressRepository;
@@ -49,6 +50,11 @@ public class UserTestConfiguration {
     @Bean
     public WarehouseAdminCreatedMessagePublisher warehouseAdminCreatedMessagePublisher() {
         return Mockito.mock(WarehouseAdminCreatedMessagePublisher.class);
+    }
+
+    @Bean
+    public EmailSender emailSender() {
+        return Mockito.mock(EmailSender.class);
     }
 
     public GlobalVerifyJWT globalVerifyJWT() {

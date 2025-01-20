@@ -14,4 +14,6 @@ import java.util.UUID;
 public class ProductResponse {
     private final UUID productId;
     private final String sku;
+    private final String name;
+    private final String imageUrl;
 }

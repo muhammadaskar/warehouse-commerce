@@ -8,18 +8,30 @@ import java.util.List;
 
 public class Product extends BaseEntity<ProductId> {
     private final String sku;
+    private final String name;
+    private final String imageUrl;
     private final Money price;
     private List<Stock> stocks;
 
     private Product(Builder builder) {
         super.setId(builder.id);
         sku = builder.sku;
+        name = builder.name;
+        imageUrl = builder.imageUrl;
         price = builder.price;
         stocks = builder.stocks;
     }
 
     public String getSku() {
         return sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public Money getPrice() {
@@ -41,6 +53,8 @@ public class Product extends BaseEntity<ProductId> {
     public static final class Builder {
         private ProductId id;
         private String sku;
+        private String name;
+        private String imageUrl;
         private Money price;
         private List<Stock> stocks;
 
@@ -58,6 +72,16 @@ public class Product extends BaseEntity<ProductId> {
 
         public Builder withSku(String val) {
             sku = val;
+            return this;
+        }
+
+        public Builder withName(String val) {
+            name = val;
+            return this;
+        }
+
+        public Builder withImageUrl(String val) {
+            imageUrl = val;
             return this;
         }
 

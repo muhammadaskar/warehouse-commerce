@@ -1,5 +1,6 @@
 package com.ecommerce.app.warehouse.dataaccess.product.mapper;
 
+import com.ecommerce.app.common.domain.valueobject.Money;
 import com.ecommerce.app.common.domain.valueobject.ProductId;
 import com.ecommerce.app.warehouse.dataaccess.product.entity.ProductEntity;
 import com.ecommerce.app.warehouse.domain.core.entity.Product;
@@ -12,6 +13,8 @@ public class ProductDataAccessMapper {
         return Product.newBuilder()
                 .withId(new ProductId(productEntity.getId()))
                 .withName(productEntity.getName())
+                .withImageUrl(productEntity.getImageUrl())
+                .withPrice(new Money(productEntity.getPrice()))
                 .build();
     }
 
@@ -19,6 +22,8 @@ public class ProductDataAccessMapper {
         return ProductEntity.builder()
                 .id(product.getId().getValue())
                 .name(product.getName())
+                .imageUrl(product.getImageUrl())
+                .price(product.getPrice().getAmount())
                 .build();
     }
 }

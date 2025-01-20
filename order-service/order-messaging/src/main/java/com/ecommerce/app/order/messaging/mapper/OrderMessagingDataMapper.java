@@ -17,6 +17,16 @@ import java.util.stream.Collectors;
 @Component
 public class OrderMessagingDataMapper {
 
+    public ProductCreatedRequest productCreatedRequestAvroModelToProductCreatedRequest(ProductCreatedRequestAvroModel productCreatedRequestAvroModel) {
+        return ProductCreatedRequest.builder()
+                .productId(productCreatedRequestAvroModel.getId().toString())
+                .sku(productCreatedRequestAvroModel.getSku())
+                .name(productCreatedRequestAvroModel.getName())
+                .imageUrl(productCreatedRequestAvroModel.getImageUrl())
+                .price(productCreatedRequestAvroModel.getPrice())
+                .build();
+    }
+
     public PaymentRequestAvroModel orderCreatedEventToPaymentRequestAvroModel(OrderCreatedEvent orderCreatedEvent) {
         Order order = orderCreatedEvent.getOrder();
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(order.getCreatedAt().toString(), DateTimeFormatter.ISO_ZONED_DATE_TIME);

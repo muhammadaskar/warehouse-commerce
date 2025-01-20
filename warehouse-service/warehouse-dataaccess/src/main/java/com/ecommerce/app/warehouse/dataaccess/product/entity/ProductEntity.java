@@ -5,6 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
@@ -18,4 +19,6 @@ public class ProductEntity {
     @Id
     private UUID id;
     private String name;
+    private String imageUrl;
+    private BigDecimal price;
 }

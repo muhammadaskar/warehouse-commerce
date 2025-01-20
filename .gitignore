@@ -19,4 +19,7 @@ target/
 ### Mac OS ###
 .DS_Store
 
+/infrastructure/kubernetes/.env
+
 ./infrastructure/docker-compose/volumes/
+

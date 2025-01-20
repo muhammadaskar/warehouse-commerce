@@ -22,13 +22,12 @@ public class ProductEntity {
     @Id
     private UUID id;
     private String sku;
+    private String name;
+    private String imageUrl;
     private BigDecimal price;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<StockEntity> stock;
-
-//    @OneToOne(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private OrderItemEntity orderItem;
 
     @Override
     public boolean equals(Object o) {

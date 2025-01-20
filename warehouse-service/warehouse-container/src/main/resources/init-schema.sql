@@ -29,7 +29,9 @@ DROP TABLE IF EXISTS "warehouse".products CASCADE;
 
 CREATE TABLE products (
     id UUID PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    image_url VARCHAR(500),
+    price DOUBLE PRECISION NOT NULL
 );
 
 DROP TABLE IF EXISTS "warehouse".stocks CASCADE;
@@ -84,8 +86,8 @@ INSERT INTO "warehouse".users (id, warehouse_id, is_email_verified, role) VALUES
 INSERT INTO "warehouse".users (id, warehouse_id, is_email_verified, role) VALUES ('222e4567-e89b-12d3-a456-426614174001', '8b622abe-b4c6-4540-84df-7dc0e9752529', TRUE, 'WAREHOUSE_ADMIN');
 INSERT INTO "warehouse".users (id, warehouse_id, is_email_verified, role) VALUES ('333e4567-e89b-12d3-a456-426614174002', 'a04adf69-11a5-440f-a6b9-56d9a718e9a7', TRUE, 'WAREHOUSE_ADMIN');
 
-INSERT INTO "warehouse".products (id, name) VALUES ('111e4567-e89b-12d3-a456-426614174000', 'Kecap Indofood');
-INSERT INTO "warehouse".products (id, name) VALUES ('111e4567-e89b-12d3-a456-426614174001', 'Susu Indomilk');
+INSERT INTO "warehouse".products (id, name, image_url, price) VALUES ('111e4567-e89b-12d3-a456-426614174000', 'Kecap Indofood', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp5_8kTMBT3pzPZ8saWQFeXaW4wh2WzTosNw&s', 15000);
+INSERT INTO "warehouse".products (id, name, image_url, price) VALUES ('111e4567-e89b-12d3-a456-426614174001', 'Susu Indomilk', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_hex_Z47zL-Um5Y-OlVTi4S_VIoxMMEhwVw&s', 20000);
 
 INSERT INTO "warehouse".stocks (id, warehouse_id, product_id, quantity) VALUES ('111e4567-e89b-12d3-a456-426614174002',  '8b622abe-b4c6-4540-84df-7dc0e9752529', '111e4567-e89b-12d3-a456-426614174000', 100);
 INSERT INTO "warehouse".stocks (id, warehouse_id, product_id, quantity) VALUES ('111e4567-e89b-12d3-a456-426614174004',  'a04adf69-11a5-440f-a6b9-56d9a718e9a7', '111e4567-e89b-12d3-a456-426614174001', 100);

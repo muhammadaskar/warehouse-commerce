@@ -27,29 +27,19 @@ public class KafkaProducerImpl<K extends Serializable, V extends SpecificRecordB
     public void send(String topicName, K key, V message, ListenableFutureCallback<SendResult<K, V>> callback) {
         log.info("Sending message={} to topic={}", message, topicName);
         try {
-//            ListenableFuture<SendResult<K, V>> kafkaResultFuture = (ListenableFuture<SendResult<K, V>>) kafkaTemplate.send(topicName, key, message);
-//            kafkaResultFuture.addCallback(callback);
-//            CompletableFuture kafkaResultFuture = kafkaTemplate.send(topicName, key, message);
-//            log.info("callback : {}", callback);
-//            kafkaResultFuture.getNow(callback);
-
             // Add callback using an explicit implementation
             CompletableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topicName, key, message);
             future.whenComplete((result, throwable) -> {
                 if (throwable != null) {
                     // handle failure
-                    log.info("Unable to send message=["
-                            + message + "] due to : " + throwable.getMessage());
+                    log.warn("Unable to send message=[{}] due to : {}", message, throwable.getMessage());
                 } else {
                     // handle success
-                    log.info("Sent message=[" + message +
-                            "] with offset=[" + result.getRecordMetadata()
-                            .offset() + "]");
+                    log.info("Sent message=[{}] with offset=[{}]", message, result.getRecordMetadata().offset());
                 }
             });
         } catch (KafkaException e) {
-            log.error("Error on kafka producer with key: {}, message: {} and exception: {}", key, message,
-                    e.getMessage());
+            log.error("Error on kafka producer with key: {}, message: {} and exception: {}", key, message, e.getMessage());
             throw new KafkaProducerException("Error on kafka producer with key: " + key + " and message: " + message);
         }
     }

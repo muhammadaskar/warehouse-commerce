@@ -1,13 +1,15 @@
 package com.ecommerce.app.warehouse.domain.core.entity;
 
 import com.ecommerce.app.common.domain.entity.BaseEntity;
+import com.ecommerce.app.common.domain.valueobject.Money;
 import com.ecommerce.app.common.domain.valueobject.ProductId;
 
 import java.util.Set;
 
 public class Product extends BaseEntity<ProductId> {
     private String name;
-    private String desc;
+    private String imageUrl;
+    private Money price;
     private Set<Stock> stocks;
 
     public Product(ProductId id) {
@@ -17,7 +19,8 @@ public class Product extends BaseEntity<ProductId> {
     private Product(Builder builder) {
         super.setId(builder.id);
         name = builder.name;
-        desc = builder.desc;
+        imageUrl = builder.imageUrl;
+        price = builder.price;
         stocks = builder.stocks;
     }
 
@@ -29,6 +32,14 @@ public class Product extends BaseEntity<ProductId> {
         return name;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public Money getPrice() {
+        return price;
+    }
+
     public static Builder newBuilder() {
         return new Builder();
     }
@@ -36,7 +47,8 @@ public class Product extends BaseEntity<ProductId> {
     public static final class Builder {
         private ProductId id;
         private String name;
-        private String desc;
+        private String imageUrl;
+        private Money price;
         private Set<Stock> stocks;
 
         private Builder() {
@@ -56,8 +68,13 @@ public class Product extends BaseEntity<ProductId> {
             return this;
         }
 
-        public Builder withDesc(String val) {
-            desc = val;
+        public Builder withImageUrl(String val) {
+            imageUrl = val;
+            return this;
+        }
+
+        public Builder withPrice(Money val) {
+            price = val;
             return this;
         }
 

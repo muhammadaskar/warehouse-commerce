@@ -20,6 +20,8 @@ public class ProductDataAccessMapper {
         return ProductEntity.builder()
                 .id(product.getId().getValue())
                 .sku(product.getSku())
+                .name(product.getName())
+                .imageUrl(product.getImageUrl())
                 .price(product.getPrice().getAmount())
                 .stock(stockToStockEntity(product.getStocks()))
                 .build();
@@ -29,8 +31,30 @@ public class ProductDataAccessMapper {
         return Product.newBuilder()
                 .withId(new ProductId(productEntity.getId()))
                 .withSku(productEntity.getSku())
+                .withName(productEntity.getName())
+                .withImageUrl(productEntity.getImageUrl())
                 .withPrice(new Money(productEntity.getPrice()))
                 .withStocks(stockEntityToStock(productEntity.getStock()))
+                .build();
+    }
+
+    public ProductEntity productToProductEntityWithoutStock(Product product) {
+        return ProductEntity.builder()
+                .id(product.getId().getValue())
+                .sku(product.getSku())
+                .name(product.getName())
+                .imageUrl(product.getImageUrl())
+                .price(product.getPrice().getAmount())
+                .build();
+    }
+
+    public Product productEntityToProductWithoutStock(ProductEntity productEntity) {
+        return Product.newBuilder()
+                .withId(new ProductId(productEntity.getId()))
+                .withSku(productEntity.getSku())
+                .withName(productEntity.getName())
+                .withImageUrl(productEntity.getImageUrl())
+                .withPrice(new Money(productEntity.getPrice()))
                 .build();
     }
 

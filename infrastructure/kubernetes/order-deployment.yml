@@ -47,7 +47,8 @@ spec:
     - name: order-service-port
       protocol: TCP
       port: 8484
-  type: LoadBalancer
+      targetPort: 8484
+  type: ClusterIP
   loadBalancerIP: ""
 ---
 apiVersion: autoscaling/v2

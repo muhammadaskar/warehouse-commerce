@@ -47,7 +47,8 @@ spec:
     - name: product-service-port
       protocol: TCP
       port: 8383
-  type: LoadBalancer
+      targetPort: 8383
+  type: ClusterIP
   loadBalancerIP: ""
 ---
 apiVersion: autoscaling/v2

@@ -8,6 +8,7 @@ import com.ecommerce.app.warehouse.domain.core.event.*;
 import com.ecommerce.app.warehouse.domain.service.dto.message.OrderItem;
 import com.ecommerce.app.warehouse.domain.service.dto.message.OrderPaidRequest;
 import com.ecommerce.app.warehouse.domain.service.dto.message.OrderShippedRequest;
+import com.ecommerce.app.warehouse.domain.service.dto.message.ProductCreatedRequest;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -22,6 +23,15 @@ public class WarehouseMessagingDataMapper {
         Warehouse warehouse = warehouseCreatedEvent.getWarehouse();
         return WarehouseCreateAvroModel.newBuilder()
                 .setWarehouseId(warehouse.getId().getValue())
+                .build();
+    }
+
+    public ProductCreatedRequest productCreatedRequestAvroModelToProductCreatedRequest(ProductCreatedRequestAvroModel productCreatedRequestAvroModel) {
+        return ProductCreatedRequest.builder()
+                .productId(productCreatedRequestAvroModel.getId().toString())
+                .name(productCreatedRequestAvroModel.getName())
+                .imageUrl(productCreatedRequestAvroModel.getImageUrl())
+                .price(productCreatedRequestAvroModel.getPrice())
                 .build();
     }
 

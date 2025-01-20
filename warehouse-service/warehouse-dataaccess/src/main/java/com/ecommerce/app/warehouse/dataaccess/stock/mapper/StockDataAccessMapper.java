@@ -1,5 +1,6 @@
 package com.ecommerce.app.warehouse.dataaccess.stock.mapper;
 
+import com.ecommerce.app.common.domain.valueobject.Money;
 import com.ecommerce.app.common.domain.valueobject.ProductId;
 import com.ecommerce.app.common.domain.valueobject.WarehouseId;
 import com.ecommerce.app.warehouse.dataaccess.product.entity.ProductEntity;
@@ -21,6 +22,8 @@ public class StockDataAccessMapper {
                 .product(ProductEntity.builder()
                         .id(stock.getProductId().getValue())
                         .name(stock.getProduct().getName())
+                        .imageUrl(stock.getProduct().getImageUrl())
+                        .price(stock.getProduct().getPrice().getAmount())
                         .build())
                 .quantity(stock.getQuantity())
                 .build();
@@ -51,13 +54,8 @@ public class StockDataAccessMapper {
         return Product.newBuilder()
                 .withId(new ProductId(productEntity.getId()))
                 .withName(productEntity.getName())
-                .build();
-    }
-
-    public ProductEntity productToProductEntity(Product product) {
-        return ProductEntity.builder()
-                .id(product.getId().getValue())
-                .name(product.getName())
+                .withImageUrl(productEntity.getImageUrl())
+                .withPrice(new Money(productEntity.getPrice()))
                 .build();
     }
 }

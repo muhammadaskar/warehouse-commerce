@@ -9,6 +9,7 @@ logging:
 warehouse-service:
   secret-key: secret-key
   warehouse-create-topic-name: warehouse-create-topic
+  product-created-topic-name: product-created-topic
   order-paid-request-topic-name: order-paid-request-topic
   order-warehouse-response-topic-name: order-warehouse-response-topic
   stock-transferred-update-topic-name: stock-transferred-update-topic
@@ -59,6 +60,7 @@ kafka-producer-config:
 kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+  product-warehouse-created-consumer-group-id: product-warehouse-created-topic-consumer
   order-paid-consumer-group-id: order-paid-topic-consumer
   order-warehouse-shipped-consumer-group-id: order-warehouse-shipped-topic-consumer
   auto-offset-reset: earliest
