@@ -54,7 +54,7 @@ public class UserController {
     @PostMapping(value = "create-warehouse-admin")
     public ResponseEntity<CreateWarehouseAdminResponse> createWarehouseAdmin(@RequestBody CreateWarehouseAdminCommand createWarehouseAdminCommand) {
         CreateWarehouseAdminResponse createWarehouseAdminResponse = userApplicationService.createWarehouseAdmin(createWarehouseAdminCommand);
-        return ResponseEntity.ok().body(createWarehouseAdminResponse);
+        return ResponseEntity.created(null).body(createWarehouseAdminResponse);
     }
 
     @PutMapping(value = "/{userId}/create-password")

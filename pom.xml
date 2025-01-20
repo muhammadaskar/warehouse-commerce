@@ -56,6 +56,11 @@
                 <artifactId>common-application-service</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.ecommerce.app</groupId>
+                <artifactId>mail</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

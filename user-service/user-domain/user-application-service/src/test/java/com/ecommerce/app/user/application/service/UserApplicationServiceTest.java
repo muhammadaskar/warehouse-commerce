@@ -3,6 +3,8 @@ package com.ecommerce.app.user.application.service;
 
 import com.ecommerce.app.common.domain.valueobject.UserId;
 import com.ecommerce.app.common.domain.valueobject.UserRole;
+import com.ecommerce.app.user.application.service.dto.create.CreateWarehouseAdminCommand;
+import com.ecommerce.app.user.application.service.dto.create.CreateWarehouseAdminResponse;
 import com.ecommerce.app.user.application.service.dto.create.LoginUserCommand;
 import com.ecommerce.app.user.application.service.dto.create.LoginUserResponse;
 import com.ecommerce.app.user.application.service.mapper.UserDataMapper;
@@ -32,8 +34,13 @@ public class UserApplicationServiceTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserDataMapper userDataMapper;
+
     private LoginUserCommand loginUserCommand;
     private LoginUserCommand loginUserCommandWrongEmail;
+
+    private CreateWarehouseAdminCommand createWarehouseAdminCommand;
 
     private User user;
 
@@ -47,6 +54,11 @@ public class UserApplicationServiceTest {
         loginUserCommandWrongEmail = LoginUserCommand.builder()
                 .email("askar@gmail.com")
                 .password("askar123")
+                .build();
+
+        createWarehouseAdminCommand = CreateWarehouseAdminCommand.builder()
+                .email("askar@gmail.com")
+                .username("askar123")
                 .build();
 
         user = User.builder()
@@ -85,5 +97,24 @@ public class UserApplicationServiceTest {
         System.out.println("TestLoginCustomer");
         Mockito.when(userRepository.findByEmail(loginUserCommandWrongEmail.getEmail())).thenReturn(Optional.empty());
         assertThrows(UserNotFoundException.class, () -> userApplicationService.loginUser(loginUserCommandWrongEmail));
+    }
+
+    @Test
+    void testCreateWarehouseAdmin() {
+        System.out.println("TestCreateWarehouseAdmin");
+        User user = userDataMapper.warehouseAdminCommandToUser(createWarehouseAdminCommand);
+        user.setId(new UserId(UUID.randomUUID()));
+        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+        CreateWarehouseAdminResponse response = userApplicationService.createWarehouseAdmin(createWarehouseAdminCommand);
+        assertNotNull(response, "Response must not be null");
+        assertEquals(user.getUsername(), response.getUsername(), "Username must be same");
+        assertEquals(user.getEmail(), response.getEmail(), "Email must be same");
+        assertEquals("warehouse admin created", response.getMessage(), "Message must be same");
+
+        System.out.println(response.getUserId());
+        System.out.println(response.getUsername());
+        System.out.println(response.getEmail());
+        System.out.println(response.getMessage());
     }
 }
