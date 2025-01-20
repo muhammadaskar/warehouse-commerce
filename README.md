@@ -72,31 +72,41 @@ docker compose -f .\common.yml -f .\docker-compose.yml up -d --build <service-na
 ```
 docker compose -f .\common.yml -f .\docker-compose.yml logs -f <service-name>
 ```
+11. Run Kong API Gateway
+```
+docker compose -f .\common.yml -f .\kong.yml up -d
+```
+
+12. Register the services in Kong
+```
+sh register-services.sh
+```
+
 #### Using Java and Maven
-11. Make sure you have installed postgresql in your machine, you can use docker to run the postgresql
-12. Make sure you have installed zookeeper and kafka in your machine, you can use docker to run the zookeeper and kafka
-13. Run services using maven, go to the project directory and run the following command. Make sure you have java 17 and maven installed in your machine.
+13. Make sure you have installed postgresql in your machine, you can use docker to run the postgresql
+14. Make sure you have installed zookeeper and kafka in your machine, you can use docker to run the zookeeper and kafka
+15. Run services using maven, go to the project directory and run the following command. Make sure you have java 17 and maven installed in your machine.
 ```
 mvn clean install
 ```
-14. Go to the container directory in service module using intellij or eclipse
-15. Run the main class in the container directory all the services
+16. Go to the container directory in service module using intellij or eclipse
+17. Run the main class in the container directory all the services
 
 #### Using Kubernetes
-16. Run using **kubernetes**, make sure you already installed `minikube` or enable `kubernetes engine` in docker desktop, go to the infrastructure directory and kubernetes directory
-17. Go to the `helm` directory and run the following command to install the services
+18. Run using **kubernetes**, make sure you already installed `minikube` or enable `kubernetes engine` in docker desktop, go to the infrastructure directory and kubernetes directory
+19. Go to the `helm` directory and run the following command to install the services
 ```
 git clone https://github.com/confluentinc/cp-helm-charts
 ```
 
-18. Go to the cp-helm-charts directory and find `poddisruptionbudget.yaml` in the `/charts/cp-zookeeper/templates/` directory and change the `apiVersion` to `policy/v1`
-19. Get back to the helm directory and run the following command to install kafka
+20. Go to the cp-helm-charts directory and find `poddisruptionbudget.yaml` in the `/charts/cp-zookeeper/templates/` directory and change the `apiVersion` to `policy/v1`
+21. Get back to the helm directory and run the following command to install kafka
 ```
 helm install gke-confluent-kafka cp-helm-charts --version 0.6.0
 ```
-20. Get back to the kubernetes directory and run the following command to install the services kafka
+22. Get back to the kubernetes directory and run the following command to install the services kafka
 ```
-kubectl apply -f kafka-client.yml.
+kubectl apply -f kafka-client.yml
 ```
 
 ```
@@ -114,29 +124,57 @@ cd ../../kafka-client-storage
 ```
 sh create-topics.sh gke-confluent-kafka-zookeeper-headless
 ```
-21. Run the following command to exec the postgresql
+23. Run the following command to exec the postgresql
 ```
 kubectl apply -f postgresql.yml
 ```
 
-22. Run the following command to apply the services
+24. Run the following command to apply the services
 ```
 kubectl apply -f application-deployment-local.yml
 ```
 
-23. Make sure all the services are running
+25. Make sure all the services are running
 ```
 kubectl get pods
 ```
 
-24. Link to the services
-- Warehouse service: http://localhost:8181
-- User service: http://localhost:8282
-- Product service: http://localhost:8383
-- Order service: http://localhost:8484
-- Payment service: http://localhost:8585
+26. After all the services are running, you can apply the kong services, but you must copy .env.example to .env and change the value
+```
+cp .env.example .env
+```
 
-25. If the services are running, you can choose accounts to login
+27. Run the following to apply the kong database
+```
+kubectl apply -f kong-database-deployment.yml
+```
+
+28. Run the following to apply the kong migration
+```
+kubectl apply -f kong-migration-job.yml
+```
+
+29. Run the following to apply the kong
+```
+kubectl apply -f kong-deployment.yml
+```
+
+30. And you must be register the services in kong, you can use the following command
+```
+sh register-services.sh
+```
+
+31. Link to the kong
+- Kong: http://localhost:8000
+
+32. Link to the services
+- Warehouse: http://localhost:8000/warehouses
+- User: http://localhost:8000/users
+- Product: http://localhost:8000/products
+- Order: http://localhost:8000/orders
+- Payment: http://localhost:8000/payments
+
+33. If the services are running, you can choose accounts to login
 - Customer: 
 ```json
 {
@@ -169,7 +207,7 @@ kubectl get pods
 }
 ```
 
-26. Link postman collection: [Postman Collection](https://drive.google.com/drive/folders/1mzEKNvdjkSUmAAWGBR3Ie6wIw3V4X_sb)
+34. Link postman collection: [Postman Collection](https://drive.google.com/drive/folders/1mzEKNvdjkSUmAAWGBR3Ie6wIw3V4X_sb)
 
 ### Test Results
 - Warehouse service
@@ -234,7 +272,3 @@ kubectl get pods
 [INFO] Finished at: 2025-01-10T01:42:40+07:00
 [INFO] ------------------------------------------------------------------------
 ```
-
-
-
-
