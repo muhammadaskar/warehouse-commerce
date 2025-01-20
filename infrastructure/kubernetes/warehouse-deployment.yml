@@ -47,10 +47,34 @@ spec:
     - name: warehouse-service-port
       protocol: TCP
       port: 8181
-  type: LoadBalancer
+      targetPort: 8181
+  type: ClusterIP
   loadBalancerIP: ""
-
-
-
-
-
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: warehouse-deployment-hpa
+  namespace: default
+  labels:
+    app: warehouse-deployment
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: warehouse-deployment
+    apiVersion: apps/v1
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 100Mi
